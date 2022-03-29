@@ -26,7 +26,6 @@ public class MainView extends Application {
 
         stage.setTitle("Personal Email Client");
         Scene scene = new Scene(mainView.load(), 1080, 600);
-        //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(true);
         stage.sizeToScene();
