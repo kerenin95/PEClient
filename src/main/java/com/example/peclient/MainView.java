@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
-
     private static Stage stage;
+    private static String splashId;
 
     public static void main(String[] args){
         launch();
@@ -21,18 +21,23 @@ public class MainView extends Application {
         * @return sets the screen view on program launch
         * */
         this.stage = stage;
+        ScreenController mainView = new ScreenController();
+        mainView.loadScreen(SetScreens.MAINVIEW.name, SetScreens.MAINVIEW.assignment);
 
-        FXMLLoader mainView = new FXMLLoader(MainView.class.getResource("main-view.fxml"));
+        //FXMLLoader mainView = new FXMLLoader(MainView.class.getResource("main-view.fxml"));
 
         stage.setTitle("Personal Email Client");
-        Scene scene = new Scene(mainView.load(), 1080, 600);
+        Scene scene = new Scene(mainView, 1080, 600);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.sizeToScene();
+        //mainView.setScreen(SetScreens.SPLASHSCREEN.name);
         stage.show();
     }
 
     public static Stage getStage(){
         return stage;
     }
+
+
 }
