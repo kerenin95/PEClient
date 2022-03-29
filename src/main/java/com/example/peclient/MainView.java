@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainView extends Application {
+    public static boolean isInternetUp;
     private static Stage stage;
-    private static String splashId;
 
     public static void main(String[] args){
         launch();

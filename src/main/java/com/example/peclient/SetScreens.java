@@ -1,8 +1,10 @@
 package com.example.peclient;
 
 public enum SetScreens {
-    MAINVIEW("mainView", "main-view.fxml"),
-    SPLASHSCREEN("splashScreen", "splash-screen.fxml");
+    MAINVIEW("MainView", "main-view.fxml"),
+    SPLASHSCREEN("SplashScreen", "splash-screen.fxml"),
+    SPLASHWAIT("SplashWait", "splash-wait.fxml"),
+    SPASHGUIDE("SplashGuide", "splash-guide.fxml");
 
     public final String name;
     public final String assignment;
