@@ -1,9 +1,19 @@
 package com.example.peclient;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 public class NotifyUser {
-    public static Notifications getNotification(String internet_connection_has_lost, String please_check_your_internet_connection) {
-        return internet_connection_has_lost + please_check_your_internet_connection;
+    /***************************************************************************
+     * * Constructors * *
+     **************************************************************************/
+    private static Notifications notifications = null;
+
+    public static Notifications getNotification(String title, String text){
+        notifications = Notifications.create().title(title).text(text).graphic(null).hideAfter(Duration.seconds(10)).position(Pos.BOTTOM_RIGHT);
+        return notifications;
     }
 }

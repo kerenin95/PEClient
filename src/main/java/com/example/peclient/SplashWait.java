@@ -1,6 +1,6 @@
 package com.example.peclient;
 
-import SynchronizeMessages;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -57,7 +57,7 @@ public class SplashWait implements Screen{
             public void handle(WorkerStateEvent event) {
                 if(backgroundTasks.getValue()) {
                     //controllers.AmailMain.getStage().setResizable(true);
-                    myController.setScreen(MainView.mainUIId);
+                    myController.setScreen(SetScreens.MAINUI.name);
                     new SynchronizeMessages().partialSync();
                 }
             }
