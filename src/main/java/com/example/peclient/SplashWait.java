@@ -1,5 +1,6 @@
 package com.example.peclient;
 
+import SynchronizeMessages;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -10,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class SplashWait  implements Screen{
+public class SplashWait implements Screen{
 
     ScreenController myController;
     public static boolean installed;

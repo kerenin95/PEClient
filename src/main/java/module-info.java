@@ -8,6 +8,7 @@ module com.example.peclient {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires com.jfoenix;
 
     opens com.example.peclient to javafx.fxml;
     exports com.example.peclient;
