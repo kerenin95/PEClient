@@ -1,7 +1,6 @@
 package com.example.peclient;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -24,14 +23,12 @@ public class MainView extends Application {
         ScreenController mainView = new ScreenController();
         mainView.loadScreen(SetScreens.MAINVIEW.name, SetScreens.MAINVIEW.assignment);
 
-        //FXMLLoader mainView = new FXMLLoader(MainView.class.getResource("main-view.fxml"));
-
         stage.setTitle("Personal Email Client");
         Scene scene = new Scene(mainView, 1080, 600);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.sizeToScene();
-        //mainView.setScreen(SetScreens.SPLASHSCREEN.name);
+        mainView.setScreen(SetScreens.SPLASHSCREEN.name);
         stage.show();
     }
 
