@@ -1,7 +1,6 @@
 package com.example.peclient;
 
 import com.jfoenix.controls.*;
-import ComposeActivity;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
@@ -27,7 +26,7 @@ import java.io.IOException;
 public class MainUI3Controller implements Screen{
 
     static ScreenController myController;
-    private Screen screenComponent;
+    private ScreenComponent screenComponent;
     private boolean componentFlag;
     private String currentFolderName;
     private String previousFolderName;
@@ -97,7 +96,7 @@ public class MainUI3Controller implements Screen{
     @FXML
     void composeClicked(ActionEvent event) {
         ComposeActivity composeActivity = new ComposeActivity(null, null,false, false);
-        composeActivity.setStage(AmailMain.getStage());
+        composeActivity.setStage(MainView.getStage());
         JFXDialogLayout content = new JFXDialogLayout();
         content.setHeading(new Text("Compose"));
         content.setBody(composeActivity.getContent());
@@ -211,7 +210,7 @@ public class MainUI3Controller implements Screen{
                 previousFolderName = currentFolderName;
                 currentFolderName = "TRASH";
                 folderLabel.setText(currentFolderName);
-                resetFolderButtonParent(); bvb
+                resetFolderButtonParent();
                 trashButtonParent.setStyle("-fx-background-color: #0091EA");
                 removeScreenComponent();
                 //removeListviewSelection();

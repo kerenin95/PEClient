@@ -26,9 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Ashok on 4/20/2017.
- */
 public class ComposeActivity {
 
     private Stage stage;
@@ -218,7 +215,7 @@ public class ComposeActivity {
                     else{
                         snackbar = new JFXSnackbar(parentContainer);
                         //snackbar.getStylesheets().add(getClass().getResource("/sneckbar.css").toExternalForm());
-                        snackbar.show("Fields cannot be empty", 3000);
+                        //snackbar.show("Fields cannot be empty", 3000);
                     }
                 } catch (MessagingException e) {
                     e.printStackTrace();

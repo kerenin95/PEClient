@@ -16,6 +16,10 @@ module com.example.peclient {
     requires google.http.client;
     requires google.http.client.jackson2;
     requires google.api.services.gmail.v1.rev62;
+    requires java.sql;
+    requires javax.mail.api;
+    requires java.desktop;
+    requires activation;
 
     opens com.example.peclient to javafx.fxml;
     exports com.example.peclient;

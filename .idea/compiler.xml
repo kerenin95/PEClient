@@ -13,4 +13,9 @@
       <module name="PEClient" target="11" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="PEClient" options="--add-exports java.desktop/sun.awt=com.example.peclient" />
+    </option>
+  </component>
 </project>
