@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import sun.awt.PlatformFont;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +64,7 @@ public class ScreenComponent extends GridPane {
         attachments.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                JFXSnackbar snackbar = new JFXSnackbar(MainUI3Controller.getScreenParent());
+                JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
                 //snackbar.show("Downloading", 2000);
 
                 Task<Void> downloadAttachments = new Task<Void>() {
@@ -85,7 +84,7 @@ public class ScreenComponent extends GridPane {
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
-                                        JFXSnackbar snackbar = new JFXSnackbar(MainUI3Controller.getScreenParent());
+                                        JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
                                         //snackbar.show("No attachments with this mail", 5000);
                                     }
                                 });
@@ -107,25 +106,6 @@ public class ScreenComponent extends GridPane {
                 Thread startDownload = new Thread(downloadAttachments);
                 startDownload.setDaemon(true);
                 startDownload.start();
-
-
-
-                //int count;
-                /*
-                JFXSnackbar snackbar;
-                try {
-                    List<File> attachmentsList = GmailOperations.downloadAttachments(message, System.getProperty("user.home"));
-                    if(attachmentsList != null && !attachmentsList.isEmpty())
-                        NotifyUser.getNotification("Attachments Downloaded", ""+attachmentsList.size()+" Attachments successfully downloaded to"+System.getProperty("user.home")).showInformation();
-                    else {
-                        snackbar = new JFXSnackbar(MainUI3Controller.getScreenParent());
-                        //snackbar.getStylesheets().add(getClass().getResource("/sneckbar.css").toExternalForm());
-                        snackbar.show("No attachments with this mail", 5000);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
-                } */
             }
         });
 
@@ -153,7 +133,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUI3Controller.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -178,7 +158,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(zoomInMailView.getContainer());
-                JFXDialog dialog = new JFXDialog(MainUI3Controller.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 zoomInMailView.setInfo(formattedMessage.getBodyText(),dialog);
                 dialog.show();
                 dialog.setOverlayClose(false);
@@ -193,7 +173,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUI3Controller.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -207,7 +187,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUI3Controller.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }

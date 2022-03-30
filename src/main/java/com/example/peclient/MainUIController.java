@@ -23,7 +23,7 @@ import java.io.IOException;
 /**
  * Created by Ashok on 4/14/2017.
  */
-public class MainUI3Controller implements Screen{
+public class MainUIController implements Screen{
 
     static ScreenController myController;
     private ScreenComponent screenComponent;
@@ -405,19 +405,6 @@ public class MainUI3Controller implements Screen{
                 }
             }
         });
-        /*ScrollBar listViewScrollBar = getListViewScrollBar(trashMessageListView);
-        listViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double position = newValue.doubleValue();
-            ScrollBar scrollBar = getListViewScrollBar(trashMessageListView);
-            if (position == scrollBar.getMax()) {
-                try {
-                    GmailMessages.trashMessages.addAll(GmailOperations.getTrashMessages(10));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
-                }
-            }
-        });*/
     }
 
     public void setSearchListView() {

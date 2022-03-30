@@ -14,9 +14,9 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
-public class ScreenController  extends StackPane {
+public class ScreenController extends StackPane {
 
-    private HashMap<String, Node> screens = new HashMap<>();
+    private final HashMap<String, Node> screens = new HashMap<>();
 
     public ScreenController() {
         super();
@@ -34,8 +34,8 @@ public class ScreenController  extends StackPane {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
             Parent loadScreen = (Parent) myLoader.load();
-            Screen myScreenControler = ((Screen) myLoader.getController());
-            myScreenControler.setScreenParent(this);
+            Screen myScreenController = ((Screen) myLoader.getController());
+            myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
             return true;
         } catch (Exception e) {
