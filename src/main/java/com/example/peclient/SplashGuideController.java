@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import com.jfoenix.controls.JFXButton;
@@ -12,17 +13,18 @@ import com.jfoenix.controls.JFXDialogLayout;
 
 public class SplashGuideController implements Screen{
 
+    public StackPane splashGuide;
     ScreenController myController;
 
 
     @FXML
-    private Label splashGuideLabel;
+    public Label splashGuideLabel;
 
     @FXML
-    private JFXButton continueFromSplash;
+    public JFXButton continueFromSplash;
 
     @FXML
-    private VBox splashGuideWait;
+    public VBox splashGuideWait;
 
     @FXML
     void loginFromSplash(ActionEvent event) {

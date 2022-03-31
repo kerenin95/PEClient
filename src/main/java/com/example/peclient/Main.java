@@ -9,6 +9,8 @@ import java.util.Objects;
 public class Main extends Application {
     public static boolean isInternetUp;
     private static Stage stage;
+    public static String SplashGuide = "SplashGuideController";
+    public static String SplashAssign = "splash-guide.fxml";
 
     public static void main(String[] args){
         launch();
@@ -25,7 +27,7 @@ public class Main extends Application {
         ScreenController mainView = new ScreenController();
         mainView.loadScreen(ScreenList.SPLASHSCREEN.name, ScreenList.SPLASHSCREEN.assignment);
         mainView.loadScreen(ScreenList.SPLASHWAIT.name, ScreenList.SPLASHWAIT.assignment);
-        mainView.loadScreen(ScreenList.SPASHGUIDE.name, ScreenList.SPASHGUIDE.assignment);
+        mainView.loadScreen(SplashGuide, SplashAssign);
         mainView.loadScreen(ScreenList.MAINUI.name, ScreenList.MAINUI.assignment);
 
         stage.setTitle("Personal Email Client");
@@ -35,13 +37,11 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.sizeToScene();
         mainView.setScreen(ScreenList.SPLASHSCREEN.name);
+        System.out.println("Set main screen");
         stage.show();
     }
 
     public static Stage getStage(){
-
         return stage;
     }
-
-
 }

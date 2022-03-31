@@ -6,7 +6,7 @@ package com.example.peclient;
 public enum ScreenList {
     SPLASHSCREEN("SplashViewController", "splash-view.fxml"),
     SPLASHWAIT("LoadScreenController", "load-screen.fxml"),
-    SPASHGUIDE("SplashGuideController", "splash-guide.fxml"),
+    SPLASHGUIDE("SplashGuideController", "splash-guide.fxml"),
     MAINUI("MainViewController", "main-view.fxml");
 
     public final String name;

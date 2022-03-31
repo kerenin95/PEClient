@@ -6,10 +6,12 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class SplashViewController implements Screen{
+    public AnchorPane bottomBackground;
     ScreenController myController;
 
     @FXML
@@ -75,11 +77,24 @@ public class SplashViewController implements Screen{
                 slideLeft.play();
                 if(checkNextScreen.getValue()) {
                     //LoadScreenController.startBackgroundTasks();
-                    myController.setScreen(ScreenList.SPLASHWAIT.name);
-                    LoadScreenController.installed = true;
+                    try {
+                        //TODO: myController.setScreen returning NPE
+                        myController.setScreen(ScreenList.SPLASHWAIT.name);
+                        LoadScreenController.installed = true;
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                 }
-                else
-                    myController.setScreen(ScreenList.SPASHGUIDE.name);
+                else {
+                    try {
+                        System.out.println(ScreenList.SPLASHGUIDE.name);
+                        myController.setScreen(ScreenList.SPLASHGUIDE.name);
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+                }
             }
         });
 
@@ -92,12 +107,12 @@ public class SplashViewController implements Screen{
     }
 
     public boolean skipSplashGuide(){
-        try{
+        /*try{
             return HelperValues.getHelperValues(HelperValues.loggedIn).equals("true");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return false;
+        }*/
+        return true;
     }
 
     @Override
