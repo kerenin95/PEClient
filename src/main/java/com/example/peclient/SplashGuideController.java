@@ -44,7 +44,7 @@ public class SplashGuideController implements Screen{
             public void handle(ActionEvent event) {
                 dialog.close();
                 SplashWait.startBackgroundTasks();
-                myController.setScreen(SetScreens.SPLASHWAIT.name);
+                myController.setScreen(ScreenList.SPLASHWAIT.name);
 
             }
         });

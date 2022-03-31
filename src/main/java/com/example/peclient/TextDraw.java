@@ -27,7 +27,7 @@ public class TextDraw{
         gc = canvas.getGraphicsContext2D();
     }
 
-    private static List<String > MATERIAL = Arrays.asList(
+    private static final List<String > MATERIAL = Arrays.asList(
             "#4fc3f7",
             "#81d4fa",
             "#40c4ff",

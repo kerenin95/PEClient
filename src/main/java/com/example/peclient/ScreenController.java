@@ -14,6 +14,9 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
+/*
+* Set-up for screens allowing them to be loaded and set
+* */
 public class ScreenController extends StackPane {
 
     private final HashMap<String, Node> screens = new HashMap<>();
@@ -30,21 +33,19 @@ public class ScreenController extends StackPane {
         return screens.get(name);
     }
 
-    public boolean loadScreen(String name, String resource) {
+    public void loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
-            Parent loadScreen = (Parent) myLoader.load();
-            Screen myScreenController = ((Screen) myLoader.getController());
+            Parent loadScreen = myLoader.load();
+            Screen myScreenController = myLoader.getController();
             myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
-            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return false;
         }
     }
 
-    public boolean setScreen(final String name) {
+    public void setScreen(final String name) {
         if (screens.get(name) != null) {
             final DoubleProperty opacity = opacityProperty();
 
@@ -72,10 +73,8 @@ public class ScreenController extends StackPane {
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
-            return true;
         } else {
             System.out.println("screen hasn't been loaded!!! \n");
-            return false;
         }
 
     }

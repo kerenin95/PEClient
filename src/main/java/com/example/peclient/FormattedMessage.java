@@ -6,7 +6,7 @@ import com.google.api.services.gmail.model.MessagePartHeader;
 public class FormattedMessage {
 
     private String draftId;
-    private Message message;
+    private final Message message;
     private String messageId;
     private String threadId;
     private String to;

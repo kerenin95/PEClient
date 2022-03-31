@@ -14,9 +14,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
-/**
- * Created by Ashok on 4/29/2017.
- */
 public class ZoomInMailView {
     BorderPane container;
     WebView webView ;

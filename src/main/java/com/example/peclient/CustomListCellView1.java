@@ -1,21 +1,11 @@
 package com.example.peclient;
 
-import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-import java.io.IOException;
-
-/**
- * Created by Ashok on 4/20/2017.
- */
 public class CustomListCellView1 {
     GridPane listCellBox = new GridPane();
     StackPane profilePic = new StackPane();
@@ -28,7 +18,6 @@ public class CustomListCellView1 {
     public CustomListCellView1(String labelId) {
         this.labelId = labelId;
         sceneLayout(); }
-
 
     public void sceneLayout(){
         ColumnConstraints column0 = new ColumnConstraints(10,45,50);

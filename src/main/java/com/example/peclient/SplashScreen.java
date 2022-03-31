@@ -75,11 +75,11 @@ public class SplashScreen implements Screen{
                 slideLeft.play();
                 if(checkNextScreen.getValue()) {
                     SplashWait.startBackgroundTasks();
-                    myController.setScreen(SetScreens.SPLASHWAIT.name);
+                    myController.setScreen(ScreenList.SPLASHWAIT.name);
                     SplashWait.installed = true;
                 }
                 else
-                    myController.setScreen(SetScreens.SPASHGUIDE.name);
+                    myController.setScreen(ScreenList.SPASHGUIDE.name);
             }
         });
 
@@ -93,10 +93,7 @@ public class SplashScreen implements Screen{
 
     public boolean skipSplashGuide(){
         try{
-            if(HelperValues.getHelperValues(HelperValues.loggedIn).equals("true"))
-                return true;
-            else
-                return false;
+            return HelperValues.getHelperValues(HelperValues.loggedIn).equals("true");
         } catch (Exception e) {
             e.printStackTrace();
         }

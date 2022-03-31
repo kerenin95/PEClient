@@ -5,10 +5,8 @@ import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.json.GoogleJsonError;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
-import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.*;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -16,15 +14,19 @@ import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
-import javax.mail.internet.*;
-import javax.mail.util.ByteArrayDataSource;
-//import javax.sql.DataSource;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 public class GmailOperations {
 
@@ -376,12 +378,11 @@ public class GmailOperations {
     public static String getMessageBody(Message m) throws IOException {
         String string = null;
         if (m.getPayload().getParts() == null)
-            string = m.getPayload().getBody().getData().toString();
+            string = m.getPayload().getBody().getData();
         else {
             string = getHtmlParts(m.getPayload().getParts());
         }
-        String decodedString = new String(Base64.decodeBase64(string.getBytes()));
-        return decodedString;
+        return new String(Base64.decodeBase64(string.getBytes()));
     }
 
     //****Retrieve multipart html content****
@@ -414,24 +415,21 @@ public class GmailOperations {
         return messages;
     }
 
-    public static Message sendMessage(String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
+    public static void sendMessage(String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
         Message message = createMessage(to, from, sub, bodyText, isHtml, attachments);
         message = Login.service.users().messages().send("me", message).execute();
-        return message;
     }
 
-    public static Draft createDraft(String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
+    public static void createDraft(String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
         Draft createdDraft = new Draft();
         createdDraft.setMessage(createMessage(to, from, sub, bodyText, isHtml, attachments));
         createdDraft = Login.service.users().drafts().create("me", createdDraft).execute();
-        return createdDraft;
     }
 
-    public static Draft updateDraft(String draftId, String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
+    public static void updateDraft(String draftId, String to, String from, String sub, String bodyText, boolean isHtml, List<File> attachments) throws IOException, MessagingException {
         Draft updatedDraft = new Draft();
         updatedDraft.setMessage(createMessage(to, from, sub, bodyText, isHtml, attachments));
         updatedDraft = Login.service.users().drafts().update("me", draftId, updatedDraft).execute();
-        return updatedDraft;
     }
 
 
@@ -559,18 +557,6 @@ public class GmailOperations {
             b.execute();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     //***********************************************************************************
     //attachments related operations
 
@@ -586,7 +572,7 @@ public class GmailOperations {
                             .get("me", message.getId(), attId).execute();
 
                     Base64 base64Url = new Base64(true);
-                    byte[] fileByteArray = base64Url.decodeBase64(attachPart.getData());
+                    byte[] fileByteArray = Base64.decodeBase64(attachPart.getData());
                     File temp = new File(downloadLocation);
                     if(!temp.exists())
                         temp.mkdir();
@@ -599,52 +585,6 @@ public class GmailOperations {
         }
         return attachmentsList;
     }
-
-
-
-
-
-
-
-
-
-
-    //this method will return drafts with draft id, message id and thread id
-
-
-    // This method will return message list having specified labels
-    /*public static List<Message> getMessagesListByLabel(List labelIds, long maxResults) throws IOException {
-        ListMessagesResponse response = gmailInstance.users().messages().list("me").setLabelIds(labelIds).setMaxResults(maxResults).execute();
-        return getMessages(response.getMessages());
-    }*/
-
-
-    //This method will return message list depending upon the query
-    /*public static List<Message> getMessagesListByQuery(String query, long maxResults) throws IOException {
-        ListMessagesResponse response = gmailInstance.users().messages().list("me").setQ(query).setMaxResults(maxResults).execute();
-        return getMessages(response.getMessages());
-    }*/
-
-
-
-
-
-
-
-
-
-
-    //Test method to retrieve messages as batch request
-   /* public static List<Message> getMessagesListAsBatch(List labelId, long maxResults) throws IOException {
-        //ListMessagesResponse response = gmailInstance.users().messages().list("me").setLabelIds(labelId).setMaxResults(maxResults).execute();
-        return getMessagesAsBatch(response.getMessages());
-    }*/
-
-
-
-
-
-
 
     public static void loadMailBox() throws IOException {
         GmailMessages.USERS_EMAIL_ADDRESS = Login.service.users().getProfile("me").execute().getEmailAddress();

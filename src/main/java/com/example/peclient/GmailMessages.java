@@ -1,6 +1,5 @@
 package com.example.peclient;
 
-import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Draft;
 import com.google.api.services.gmail.model.Message;
 import javafx.collections.FXCollections;

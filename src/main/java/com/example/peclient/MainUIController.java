@@ -20,9 +20,6 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 
-/**
- * Created by Ashok on 4/14/2017.
- */
 public class MainUIController implements Screen{
 
     static ScreenController myController;

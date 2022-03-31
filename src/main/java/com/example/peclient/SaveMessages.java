@@ -1,13 +1,9 @@
 package com.example.peclient;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by Ashok on 4/15/2017.
- */
 public class SaveMessages {
 
     public static void saveMailbox(){

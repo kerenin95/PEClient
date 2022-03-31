@@ -34,13 +34,12 @@ public class ComposeActivity {
     private String from = "";
     private String sub = " ";
     private String body = " ";
-    private FormattedMessage formattedMessage;
-    private Message message;
-    private boolean isEditDraft;
-    private boolean isForward;
+    private final FormattedMessage formattedMessage;
+    private final Message message;
+    private final boolean isEditDraft;
+    private final boolean isForward;
     public List<File> attachments = new ArrayList<File>();
     long attachmentFilesSize = 0;
-    // HashMap<String , byte[]> previouslyAddedAttachments;
 
     VBox parentContainer = new VBox();
     Label fromLabel = new Label("From");
@@ -56,7 +55,6 @@ public class ComposeActivity {
     JFXButton saveButton = new JFXButton("Save");
     JFXButton discardButton = new JFXButton("Discard");
     ButtonBar attachedFilesButtonParent = new ButtonBar();
-    long attatchedFileSize = 0;
 
     FileChooser fileChooser = new FileChooser();
 
@@ -97,11 +95,6 @@ public class ComposeActivity {
                     attachments.add(f);
                 }
             }
-            /*try {
-                previouslyAddedAttachments = GmailOperations.getAttachments(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
         }
 
     }
@@ -214,12 +207,8 @@ public class ComposeActivity {
                     }
                     else{
                         snackbar = new JFXSnackbar(parentContainer);
-                        //snackbar.getStylesheets().add(getClass().getResource("/sneckbar.css").toExternalForm());
-                        //snackbar.show("Fields cannot be empty", 3000);
                     }
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (MessagingException | IOException e) {
                     e.printStackTrace();
                 }
 
@@ -249,18 +238,14 @@ public class ComposeActivity {
                 if(isEditDraft){
                     try {
                         GmailOperations.updateDraft(formattedMessage.getDraftId(),to,from,sub,body,isHtml.isSelected(),attachments);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (MessagingException e) {
+                    } catch (IOException | MessagingException e) {
                         e.printStackTrace();
                     }
                 }
                 else {
                     try {
                         GmailOperations.createDraft(to, from, sub, body, isHtml.isSelected(), attachments);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (MessagingException e) {
+                    } catch (IOException | MessagingException e) {
                         e.printStackTrace();
                     }
                 }
@@ -338,9 +323,7 @@ public class ComposeActivity {
 
 
     public boolean checkEmptyValues(){
-        if((toTextField.getText() != null && !toTextField.getText().equals("")) && (fromTextField.getText()!= null && fromTextField.getText().equals("")) )
-            return true;
-        return false;
+        return (toTextField.getText() != null && !toTextField.getText().equals("")) && (fromTextField.getText() != null && fromTextField.getText().equals(""));
     }
 
 

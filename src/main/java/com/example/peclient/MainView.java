@@ -19,20 +19,25 @@ public class MainView extends Application {
         * @param takes stage
         * @return sets the screen view on program launch
         * */
-        this.stage = stage;
+        MainView.stage = stage;
         ScreenController mainView = new ScreenController();
-        mainView.loadScreen(SetScreens.MAINVIEW.name, SetScreens.MAINVIEW.assignment);
+        mainView.loadScreen(ScreenList.SPLASHSCREEN.name, ScreenList.SPLASHSCREEN.assignment);
+        mainView.loadScreen(ScreenList.SPLASHWAIT.name, ScreenList.SPLASHWAIT.assignment);
+        mainView.loadScreen(ScreenList.SPASHGUIDE.name, ScreenList.SPASHGUIDE.assignment);
+        mainView.loadScreen(ScreenList.MAINUI.name, ScreenList.MAINUI.assignment);
 
         stage.setTitle("Personal Email Client");
         Scene scene = new Scene(mainView, 1080, 600);
+        //scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(true);
         stage.sizeToScene();
-        mainView.setScreen(SetScreens.SPLASHSCREEN.name);
+        mainView.setScreen(ScreenList.SPLASHSCREEN.name);
         stage.show();
     }
 
     public static Stage getStage(){
+
         return stage;
     }
 

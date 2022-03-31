@@ -253,7 +253,7 @@ public class ScreenComponent extends GridPane {
         childContainer2.getChildren().add(region1);
         childContainer2.getChildren().add(toFromLabel);
         childContainer2.getChildren().add(dateLabel);
-        childContainer2.setMargin(dateLabel,new Insets(0,0,0,20));
+        HBox.setMargin(dateLabel,new Insets(0,0,0,20));
         rowParent.setCenter(childParent);
         rowParent.setBottom(childContainer2);
         return rowParent;
@@ -275,8 +275,8 @@ public class ScreenComponent extends GridPane {
         Region region = new Region();
         childContainer.getChildren().add(region);
         childContainer.getChildren().add(zoomMail);
-        childContainer.setMargin(attachments, new Insets(0,0,0,20));
-        childContainer.setMargin(zoomMail, new Insets(0,20,0,0));
+        HBox.setMargin(attachments, new Insets(0,0,0,20));
+        HBox.setMargin(zoomMail, new Insets(0,20,0,0));
         HBox.setHgrow(region, Priority.ALWAYS);
 
         parentContainer.getChildren().add(childContainer);

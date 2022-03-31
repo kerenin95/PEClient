@@ -108,9 +108,4 @@ public class Login {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
-
-    /*public static Gmail getService(){
-        return service;
-    }
-*/
 }

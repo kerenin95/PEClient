@@ -57,7 +57,7 @@ public class SplashWait implements Screen{
             public void handle(WorkerStateEvent event) {
                 if(backgroundTasks.getValue()) {
                     //controllers.AmailMain.getStage().setResizable(true);
-                    myController.setScreen(SetScreens.MAINUI.name);
+                    myController.setScreen(ScreenList.MAINUI.name);
                     new SynchronizeMessages().partialSync();
                 }
             }

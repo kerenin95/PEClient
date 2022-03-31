@@ -1,12 +1,8 @@
 package com.example.peclient;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created by Ashok on 4/15/2017.
- */
 public class InitDbTables {
     public InitDbTables(){
         initTables();

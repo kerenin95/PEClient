@@ -2,9 +2,6 @@ package com.example.peclient;
 
 import java.sql.*;
 
-/**
- * Created by Ashok on 4/14/2017.
- */
 public class HelperValues {
 
     public static String loggedIn = "login";
@@ -28,9 +25,7 @@ public class HelperValues {
             statement.setString(1,name);
             statement.setString(2,value);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -40,9 +35,7 @@ public class HelperValues {
         try {
             Statement s = h2DBConnection.getConnection().createStatement();
             s.executeUpdate("DELETE FROM helper WHERE name = '" + name + "'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
