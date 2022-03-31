@@ -25,6 +25,7 @@ import javafx.scene.web.WebView;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ScreenComponent extends GridPane {
 
@@ -61,52 +62,49 @@ public class ScreenComponent extends GridPane {
     }
 
     private void setActions(){
-        attachments.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
-                //snackbar.show("Downloading", 2000);
+        attachments.setOnAction(event -> {
+            JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
+            //snackbar.show("Downloading", 2000);
 
-                Task<Void> downloadAttachments = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        try {
-                            List<File> attachmentsList = GmailOperations.downloadAttachments(message, System.getProperty("user.home"));
-                            if (attachmentsList != null && !attachmentsList.isEmpty()) {
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        NotifyUser.getNotification("Attachments Downloaded", "" + attachmentsList.size() + " Attachments successfully downloaded to" + System.getProperty("user.home")).showInformation();
-
-                                    }
-                                });
-                            } else {
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
-                                        //snackbar.show("No attachments with this mail", 5000);
-                                    }
-                                });
-                            }
-                        }catch (IOException e) {
-                            e.printStackTrace();
+            Task<Void> downloadAttachments = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    try {
+                        List<File> attachmentsList = GmailOperations.downloadAttachments(message, System.getProperty("user.home"));
+                        if (!attachmentsList.isEmpty()) {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                                    NotifyUser.getNotification("Attachments Downloaded", "" + attachmentsList.size() + " Attachments successfully downloaded to" + System.getProperty("user.home")).showInformation();
+
+                                }
+                            });
+                        } else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
+                                    //snackbar.show("No attachments with this mail", 5000);
                                 }
                             });
                         }
-                        return null;
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                            }
+                        });
                     }
-                };
+                    return null;
+                }
+            };
 
 
-                Thread startDownload = new Thread(downloadAttachments);
-                startDownload.setDaemon(true);
-                startDownload.start();
-            }
+            Thread startDownload = new Thread(downloadAttachments);
+            startDownload.setDaemon(true);
+            startDownload.start();
         });
 
         replyButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -129,7 +127,7 @@ public class ScreenComponent extends GridPane {
             public void handle(ActionEvent event) {
                 ComposeActivity composeActivity = new ComposeActivity(formattedMessage, message, true, false);
 
-                composeActivity.setStage(MainView.getStage());
+                composeActivity.setStage(Main.getStage());
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
@@ -169,7 +167,7 @@ public class ScreenComponent extends GridPane {
             @Override
             public void handle(ActionEvent event) {
                 ComposeActivity composeActivity = new ComposeActivity(formattedMessage, message, false, true);
-                composeActivity.setStage(MainView.getStage());
+                composeActivity.setStage(Main.getStage());
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
@@ -183,7 +181,7 @@ public class ScreenComponent extends GridPane {
             @Override
             public void handle(ActionEvent event) {
                 ComposeActivity composeActivity = new ComposeActivity(formattedMessage, message, false, true);
-                composeActivity.setStage(MainView.getStage());
+                composeActivity.setStage(Main.getStage());
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
@@ -483,14 +481,14 @@ public class ScreenComponent extends GridPane {
                 messageEngine.loadContent(formattedMessage.getBodyText());
         }catch (IOException e) {
             e.printStackTrace();
-            if(MainView.isInternetUp){
-                MainView.isInternetUp = false;
+            if(Main.isInternetUp){
+                Main.isInternetUp = false;
                 NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
             }
         }
         subjectLabel.setText(formattedMessage.getSubject());
         dateLabel.setText(formattedMessage.getDate());
-        if(folderLabel == "INBOX" || folderLabel == "TRASH"){
+        if(Objects.equals(folderLabel, "INBOX") || Objects.equals(folderLabel, "TRASH")){
             toFromLabel.setText("From "+formattedMessage.getFrom()+" to you");
         }
         else

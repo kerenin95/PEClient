@@ -93,7 +93,7 @@ public class MainUIController implements Screen{
     @FXML
     void composeClicked(ActionEvent event) {
         ComposeActivity composeActivity = new ComposeActivity(null, null,false, false);
-        composeActivity.setStage(MainView.getStage());
+        composeActivity.setStage(Main.getStage());
         JFXDialogLayout content = new JFXDialogLayout();
         content.setHeading(new Text("Compose"));
         content.setBody(composeActivity.getContent());

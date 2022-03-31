@@ -8,7 +8,7 @@ public class h2DBConnection {
     private static Connection connection;
     private static final String JDBC_DRIVER = "org.h2.Driver";
     private static final String url = "jdbc:h2:./gmail";
-    private static final String user = "sa";
+    private static final String user = "bweber";
     private static final String pass = "";
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {

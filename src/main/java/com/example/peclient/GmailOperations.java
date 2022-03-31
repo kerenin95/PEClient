@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,18 +36,18 @@ public class GmailOperations {
         int max = maxResults + GmailMessages.inboxLastIndex;
         int count = 0;
         BatchRequest b = Login.service.batch();
-        JsonBatchCallback<Message> bc = new JsonBatchCallback<Message>() {
+        JsonBatchCallback<Message> bc = new JsonBatchCallback<>() {
             @Override
-            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) throws IOException {
+            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) {
                 System.out.println("Internet Connection Error");
             }
 
             @Override
-            public void onSuccess(Message message, HttpHeaders responseHeaders) throws IOException {
+            public void onSuccess(Message message, HttpHeaders responseHeaders) {
                 messages.add(new FormattedMessage(message));
             }
         };
-        Message m = null;
+        Message m;
         while (GmailMessages.inboxLastIndex < max && GmailMessages.inboxLastIndex < GmailMessages.inboxMaxSize) {
             m = GmailMessages.inboxList.get(GmailMessages.inboxLastIndex);
             Login.service.users().messages().get("me", m.getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).queue(b, bc);
@@ -59,14 +60,14 @@ public class GmailOperations {
         return messages;
     }
 
-    public static void loadInbox() throws IOException {
-        GmailMessages.inboxList = getAllMessagesListInLabelId(Arrays.asList("INBOX"));
+    public static void loadInbox() throws IOException, SQLException, ClassNotFoundException {
+        GmailMessages.inboxList = getAllMessagesListInLabelId(List.of("INBOX"));
         GmailMessages.inboxMaxSize = GmailMessages.inboxList.size();
         List<FormattedMessage> temp = getInboxMessages(50);
         GmailMessages.inboxMessages.addAll(temp);
         if (temp.size() != 0)
             GmailMessages.inboxStartHistoryId = temp.get(0).getHistoryId();
-        //SaveMessages.saveInbox(temp);
+        SaveMessages.saveInbox(temp);
         System.out.println("Inbox Loaded");
     }
 
@@ -77,37 +78,26 @@ public class GmailOperations {
                 List<HistoryMessageAdded> messageAddedList = history.getMessagesAdded();
                 if (messageAddedList != null) {
                     for (HistoryMessageAdded messageAdded : messageAddedList) {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    GmailMessages.inboxMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me",
-                                            messageAdded.getMessage().getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
-                                    GmailMessages.inboxStartHistoryId = GmailMessages.inboxMessages.get(0).getHistoryId();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        Platform.runLater(() -> {
+                            try {
+                                GmailMessages.inboxMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me",
+                                        messageAdded.getMessage().getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
+                                GmailMessages.inboxStartHistoryId = GmailMessages.inboxMessages.get(0).getHistoryId();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         });
                     }
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            NotifyUser.getNotification("New Mails", ""+messageAddedList.size()+ " new Mails arrived");
-                        }
-                    });
+                    Platform.runLater(() -> NotifyUser.getNotification("New Mails", ""+messageAddedList.size()+ " new Mails arrived"));
                 }
             }
 
         } else {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        loadInbox();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(() -> {
+                try {
+                    loadInbox();
+                } catch (IOException | SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -122,18 +112,18 @@ public class GmailOperations {
         int count = 0;
         int max = GmailMessages.sentLastIndex + maxResults;
         BatchRequest b = Login.service.batch();
-        JsonBatchCallback<Message> bc = new JsonBatchCallback<Message>() {
+        JsonBatchCallback<Message> bc = new JsonBatchCallback<>() {
             @Override
-            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) throws IOException {
+            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) {
                 System.out.println("Internet Connection Error");
             }
 
             @Override
-            public void onSuccess(Message message, HttpHeaders responseHeaders) throws IOException {
+            public void onSuccess(Message message, HttpHeaders responseHeaders) {
                 messages.add(new FormattedMessage(message));
             }
         };
-        Message m = null;
+        Message m;
         while (GmailMessages.sentLastIndex < max && GmailMessages.sentLastIndex < GmailMessages.sentMaxSize) {
             m = GmailMessages.sentList.get(GmailMessages.sentLastIndex);
             Login.service.users().messages().get("me", m.getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).queue(b, bc);
@@ -146,7 +136,7 @@ public class GmailOperations {
     }
 
     public static void loadSent() throws IOException {
-        GmailMessages.sentList = getAllMessagesListInLabelId(Arrays.asList("SENT"));
+        GmailMessages.sentList = getAllMessagesListInLabelId(List.of("SENT"));
         GmailMessages.sentMaxSize = GmailMessages.sentList.size();
         List<FormattedMessage> temp = getSentMessages(50);
         GmailMessages.sentMessages.addAll(temp);
@@ -163,16 +153,13 @@ public class GmailOperations {
                 List<HistoryMessageAdded> messageAddedList = history.getMessagesAdded();
                 if (messageAddedList != null) {
                     for (HistoryMessageAdded messageAdded : messageAddedList) {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    GmailMessages.sentMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me", messageAdded.getMessage()
-                                            .getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
-                                    GmailMessages.sentStartHistoryId = GmailMessages.sentMessages.get(0).getHistoryId();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        Platform.runLater(() -> {
+                            try {
+                                GmailMessages.sentMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me", messageAdded.getMessage()
+                                        .getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
+                                GmailMessages.sentStartHistoryId = GmailMessages.sentMessages.get(0).getHistoryId();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         });
                     }
@@ -180,14 +167,11 @@ public class GmailOperations {
             }
 
         } else {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        loadSent();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(() -> {
+                try {
+                    loadSent();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -199,7 +183,7 @@ public class GmailOperations {
     //Drafts specific operations
     public static List<Draft> getAllDraftsList() throws IOException {
         ListDraftsResponse response = Login.service.users().drafts().list("me").execute();
-        List<Draft> drafts = new ArrayList<Draft>();
+        List<Draft> drafts = new ArrayList<>();
         while (response.getDrafts() != null) {
             drafts.addAll(response.getDrafts());
             if (response.getNextPageToken() != null) {
@@ -217,14 +201,14 @@ public class GmailOperations {
         int count = 0;
         int max = maxResults + GmailMessages.draftLastIndex;
         BatchRequest b = Login.service.batch();
-        JsonBatchCallback<Draft> bc = new JsonBatchCallback<Draft>() {
+        JsonBatchCallback<Draft> bc = new JsonBatchCallback<>() {
             @Override
-            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) throws IOException {
+            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) {
                 System.out.println("Internet Connection Error");
             }
 
             @Override
-            public void onSuccess(Draft draft, HttpHeaders responseHeaders) throws IOException {
+            public void onSuccess(Draft draft, HttpHeaders responseHeaders) {
                 Message message = draft.getMessage();
                 FormattedMessage formattedMessage = new FormattedMessage(message);
                 formattedMessage.setDraftId(draft.getId());
@@ -232,7 +216,7 @@ public class GmailOperations {
                 messages.add(formattedMessage);
             }
         };
-        Draft d = null;
+        Draft d;
         while (GmailMessages.draftLastIndex < max && GmailMessages.draftLastIndex < GmailMessages.draftMaxSize) {
             d = GmailMessages.draftList.get(GmailMessages.draftLastIndex);
             Login.service.users().drafts().get("me", d.getId()).queue(b, bc);
@@ -258,17 +242,14 @@ public class GmailOperations {
 
     public static void getNewDraftMails() throws IOException {
         List<History> historyList = getHistoryMessages("DRAFT", new BigInteger(GmailMessages.draftStartHistoryId));
-        if (historyList != null && !historyList.isEmpty()) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        GmailMessages.draftLastIndex = 0;
-                        loadDraft();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        if (!historyList.isEmpty()) {
+            Platform.runLater(() -> {
+                try {
+                    GmailMessages.draftLastIndex = 0;
+                    loadDraft();
+                } catch (IOException e) {
+                    e.printStackTrace();
 
-                    }
                 }
             });
         }
@@ -280,18 +261,18 @@ public class GmailOperations {
     public static List<FormattedMessage> getTrashMessages(int maxResults) throws IOException {
         List<FormattedMessage> messages = new ArrayList<>();
         BatchRequest b = Login.service.batch();
-        JsonBatchCallback<Message> bc = new JsonBatchCallback<Message>() {
+        JsonBatchCallback<Message> bc = new JsonBatchCallback<>() {
             @Override
-            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) throws IOException {
+            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) {
                 System.out.println("Internet Connection Error");
             }
 
             @Override
-            public void onSuccess(Message message, HttpHeaders responseHeaders) throws IOException {
+            public void onSuccess(Message message, HttpHeaders responseHeaders) {
                 messages.add(new FormattedMessage(message));
             }
         };
-        Message m = null;
+        Message m;
         while (GmailMessages.trashLastIndex < maxResults && GmailMessages.trashLastIndex < GmailMessages.trashMaxSize) {
             m = GmailMessages.trashList.get(GmailMessages.trashLastIndex);
             Login.service.users().messages().get("me", m.getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).queue(b, bc);
@@ -303,7 +284,7 @@ public class GmailOperations {
     }
 
     public static void loadTrash() throws IOException {
-        GmailMessages.trashList = getAllMessagesListInLabelId(Arrays.asList("TRASH"));
+        GmailMessages.trashList = getAllMessagesListInLabelId(List.of("TRASH"));
         GmailMessages.trashMaxSize = GmailMessages.trashList.size();
         GmailMessages.trashLastIndex = 0;
         List<FormattedMessage> temp = getTrashMessages(50);
@@ -321,29 +302,23 @@ public class GmailOperations {
                 List<HistoryMessageAdded> messageAddedList = history.getMessagesAdded();
                 if (messageAddedList != null) {
                     for (HistoryMessageAdded messageAdded : messageAddedList) {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    GmailMessages.trashMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me", messageAdded.getMessage()
-                                            .getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        Platform.runLater(() -> {
+                            try {
+                                GmailMessages.trashMessages.add(0, new FormattedMessage(Login.service.users().messages().get("me", messageAdded.getMessage()
+                                        .getId()).setFormat("metadata").setMetadataHeaders(Arrays.asList("To", "From", "Date", "Subject")).execute()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         });
                     }
                 }
             }
         } else {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        loadTrash();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Platform.runLater(() -> {
+                try {
+                    loadTrash();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -376,7 +351,7 @@ public class GmailOperations {
 
     //****Retrieve message body ****
     public static String getMessageBody(Message m) throws IOException {
-        String string = null;
+        String string;
         if (m.getPayload().getParts() == null)
             string = m.getPayload().getBody().getData();
         else {
@@ -402,7 +377,7 @@ public class GmailOperations {
     //****this method will return messages with messageid and threadids****
     public static List<Message> getAllMessagesListInLabelId(List<String> labelIds) throws IOException {
         ListMessagesResponse response = Login.service.users().messages().list("me").setLabelIds(labelIds).execute();
-        List<Message> messages = new ArrayList<Message>();
+        List<Message> messages = new ArrayList<>();
         while (response.getMessages() != null) {
             messages.addAll(response.getMessages());
             if (response.getNextPageToken() != null) {
@@ -497,7 +472,7 @@ public class GmailOperations {
             histories.addAll(response.getHistory());
             if (response.getNextPageToken() != null) {
                 String pageToken = response.getNextPageToken();
-                response = Login.service.users().history().list("me").setHistoryTypes(Arrays.asList("messageAdded"))
+                response = Login.service.users().history().list("me").setHistoryTypes(List.of("messageAdded"))
                         .setLabelId(labelId).setPageToken(pageToken).setStartHistoryId(startHistoryId).execute();
             } else {
                 break;
@@ -530,12 +505,12 @@ public class GmailOperations {
         BatchRequest b = Login.service.batch();
         JsonBatchCallback<Message> bc = new JsonBatchCallback<Message>() {
             @Override
-            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) throws IOException {
+            public void onFailure(GoogleJsonError e, HttpHeaders responseHeaders) {
                 System.out.println("Internet Connection Error");
             }
 
             @Override
-            public void onSuccess(Message message, HttpHeaders responseHeaders) throws IOException {
+            public void onSuccess(Message message, HttpHeaders responseHeaders) {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -586,7 +561,7 @@ public class GmailOperations {
         return attachmentsList;
     }
 
-    public static void loadMailBox() throws IOException {
+    public static void loadMailBox() throws IOException, SQLException, ClassNotFoundException {
         GmailMessages.USERS_EMAIL_ADDRESS = Login.service.users().getProfile("me").execute().getEmailAddress();
         loadInbox();
         loadSent();

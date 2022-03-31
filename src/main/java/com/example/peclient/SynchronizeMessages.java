@@ -3,10 +3,11 @@ package com.example.peclient;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SynchronizeMessages {
 
-    public void fullSync() throws IOException {
+    public void fullSync() throws IOException, SQLException, ClassNotFoundException {
         GmailOperations.loadMailBox();
         new InitDbTables();
         SaveMessages.saveMailbox();
@@ -15,13 +16,13 @@ public class SynchronizeMessages {
     }
 
     public void partialSync(){
-        Task<Void> syncNewMails = new Task<Void>() {
+        Task<Void> syncNewMails = new Task<>() {
             @Override
             protected Void call() throws Exception {
                 while (true) {
                     try {
                         Thread.sleep(5000);
-                    }catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     GmailOperations.getNewInboxMails();

@@ -1,7 +1,7 @@
 package com.example.peclient;
 
 /*
-* Controls connectors between displayed screen, inputs to MainView and connects to view controllers
+* Controls connectors between displayed screen, inputs to Main and connects to view controllers
 * */
 public enum ScreenList {
     SPLASHSCREEN("SplashScreen", "main-view.fxml"),

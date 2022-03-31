@@ -28,38 +28,30 @@ public class SplashWait implements Screen{
     @FXML
     void initialize(){
 
-        backgroundTasks = new Task<Boolean>() {
+        backgroundTasks = new Task<>() {
             @Override
             protected Boolean call() throws Exception {
-                try{
+                try {
                     Login.startAuthentication();
                     new SynchronizeMessages().fullSync();
 
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                     System.out.println("Internet Error at splashWait Task");
-                    MainView.isInternetUp = false;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            NotifyUser.getNotification("Internet Connection has lost",
-                                    "Please check your internet connection").showInformation();
-                        }
-                    });
+                    Main.isInternetUp = false;
+                    Platform.runLater(() -> NotifyUser.getNotification("Internet Connection has lost",
+                            "Please check your internet connection").showInformation());
                     return false;
                 }
                 return true;
             }
         };
 
-        backgroundTasks.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                if(backgroundTasks.getValue()) {
-                    //controllers.AmailMain.getStage().setResizable(true);
-                    myController.setScreen(ScreenList.MAINUI.name);
-                    new SynchronizeMessages().partialSync();
-                }
+        backgroundTasks.setOnSucceeded(event -> {
+            if(backgroundTasks.getValue()) {
+                //controllers.AmailMain.getStage().setResizable(true);
+                myController.setScreen(ScreenList.MAINUI.name);
+                new SynchronizeMessages().partialSync();
             }
         });
 
