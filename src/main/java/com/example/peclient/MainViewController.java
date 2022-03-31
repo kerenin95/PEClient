@@ -20,7 +20,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 
-public class MainUIController implements Screen{
+public class MainViewController implements Screen{
 
     static ScreenController myController;
     private ScreenComponent screenComponent;

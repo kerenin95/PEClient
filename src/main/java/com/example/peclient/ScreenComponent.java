@@ -63,7 +63,7 @@ public class ScreenComponent extends GridPane {
 
     private void setActions(){
         attachments.setOnAction(event -> {
-            JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
+            JFXSnackbar snackbar = new JFXSnackbar(MainViewController.getScreenParent());
             //snackbar.show("Downloading", 2000);
 
             Task<Void> downloadAttachments = new Task<Void>() {
@@ -83,7 +83,7 @@ public class ScreenComponent extends GridPane {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    JFXSnackbar snackbar = new JFXSnackbar(MainUIController.getScreenParent());
+                                    JFXSnackbar snackbar = new JFXSnackbar(MainViewController.getScreenParent());
                                     //snackbar.show("No attachments with this mail", 5000);
                                 }
                             });
@@ -131,7 +131,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -156,7 +156,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(zoomInMailView.getContainer());
-                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 zoomInMailView.setInfo(formattedMessage.getBodyText(),dialog);
                 dialog.show();
                 dialog.setOverlayClose(false);
@@ -171,7 +171,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -185,7 +185,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainUIController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }

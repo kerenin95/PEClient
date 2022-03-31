@@ -43,7 +43,7 @@ public class SplashGuideController implements Screen{
             @Override
             public void handle(ActionEvent event) {
                 dialog.close();
-                SplashWait.startBackgroundTasks();
+                LoadScreenController.startBackgroundTasks();
                 myController.setScreen(ScreenList.SPLASHWAIT.name);
 
             }

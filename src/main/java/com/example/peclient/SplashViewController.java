@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class SplashScreen implements Screen{
+public class SplashViewController implements Screen{
     ScreenController myController;
 
     @FXML
@@ -74,9 +74,9 @@ public class SplashScreen implements Screen{
             public void handle(WorkerStateEvent event) {
                 slideLeft.play();
                 if(checkNextScreen.getValue()) {
-                    SplashWait.startBackgroundTasks();
+                    //LoadScreenController.startBackgroundTasks();
                     myController.setScreen(ScreenList.SPLASHWAIT.name);
-                    SplashWait.installed = true;
+                    LoadScreenController.installed = true;
                 }
                 else
                     myController.setScreen(ScreenList.SPASHGUIDE.name);

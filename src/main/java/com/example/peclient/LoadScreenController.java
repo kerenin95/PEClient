@@ -3,15 +3,13 @@ package com.example.peclient;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class SplashWait implements Screen{
+public class LoadScreenController implements Screen{
 
     ScreenController myController;
     public static boolean installed;
@@ -49,7 +47,7 @@ public class SplashWait implements Screen{
 
         backgroundTasks.setOnSucceeded(event -> {
             if(backgroundTasks.getValue()) {
-                //controllers.AmailMain.getStage().setResizable(true);
+                Main.getStage().setResizable(true);
                 myController.setScreen(ScreenList.MAINUI.name);
                 new SynchronizeMessages().partialSync();
             }
