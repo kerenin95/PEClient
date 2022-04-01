@@ -7,15 +7,20 @@ public class HelperValues {
     public static String loggedIn = "login";
 
     public static String getHelperValues(String name) throws SQLException, ClassNotFoundException {
-        String res = null;
-        Statement statement = h2DBConnection.getConnection().createStatement();
-        String sql = "SELECT pairValue FROM helper WHERE name = '"+name+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-        if(resultSet.next())
-            res = resultSet.getString("pairValue");
-        resultSet.close();
-        statement.close();
-        return res;
+        String res = "";
+        try {
+            /*Statement statement = h2DBConnection.getConnection().createStatement();
+            String sql = "SELECT pairValue FROM helper WHERE name = '" + name + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next())
+                res = resultSet.getString("pairValue");
+            resultSet.close();
+            statement.close();*/
+            return res;
+        } catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public static void setHelperValues(String name , String value){

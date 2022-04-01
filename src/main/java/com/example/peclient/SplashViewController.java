@@ -76,23 +76,20 @@ public class SplashViewController implements Screen{
             public void handle(WorkerStateEvent event) {
                 slideLeft.play();
                 if(checkNextScreen.getValue()) {
-                    //LoadScreenController.startBackgroundTasks();
+                    LoadScreenController.startBackgroundTasks();
                     try {
-                        //TODO: myController.setScreen returning NPE
-                        myController.setScreen(ScreenList.SPLASHWAIT.name);
+                        myController.setScreen(ScreenList.SPLASHVIEW.name);
                         LoadScreenController.installed = true;
                     }
                     catch (Exception e){
-                        System.out.println(e);
+                        e.printStackTrace();
                     }
-                }
-                else {
+                } else {
                     try {
-                        System.out.println(ScreenList.SPLASHGUIDE.name);
                         myController.setScreen(ScreenList.SPLASHGUIDE.name);
                     }
                     catch (Exception e){
-                        System.out.println(e);
+                        e.printStackTrace();
                     }
                 }
             }
@@ -107,16 +104,16 @@ public class SplashViewController implements Screen{
     }
 
     public boolean skipSplashGuide(){
-        /*try{
+        try{
             return HelperValues.getHelperValues(HelperValues.loggedIn).equals("true");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-        return true;
+        }
+        return false;
     }
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-
+        myController = screenPage;
     }
 }

@@ -12,11 +12,10 @@ public class h2DBConnection {
     private static final String pass = "";
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
-        if(connection == null) {
+        if (connection == null) {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(url, user, pass);
         }
         return connection;
     }
-
 }

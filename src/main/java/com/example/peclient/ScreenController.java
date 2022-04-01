@@ -35,27 +35,20 @@ public class ScreenController extends StackPane {
 
     public void loadScreen(String name, String resource) {
         try {
-            System.out.println(name + " " +  resource);
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
-            System.out.println(myLoader);
             Parent loadScreen = myLoader.load();
-            System.out.println(loadScreen);
             Screen myScreenController = myLoader.getController();
-            System.out.println(myScreenController);
             myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public void setScreen(final String name) {
         try {
             if (screens.get(name) != null) {
-                System.out.println(name);
-                System.out.println("screen name: " + screens.get(name));
-                System.out.println(screens.keySet());
-                System.out.println(screens.values());
                 final DoubleProperty opacity = opacityProperty();
 
                 if (!getChildren().isEmpty()) {
@@ -77,7 +70,6 @@ public class ScreenController extends StackPane {
                 } else {
                     setOpacity(0.0);
                     getChildren().add(screens.get(name));       //no one else been displayed, then just show
-                    System.out.println(screens.size());
                     Timeline fadeIn = new Timeline(
                             new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                             new KeyFrame(new Duration(1500), new KeyValue(opacity, 1.0)));
@@ -88,7 +80,7 @@ public class ScreenController extends StackPane {
             }
         }
         catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }
@@ -102,6 +94,4 @@ public class ScreenController extends StackPane {
             return true;
         }
     }
-
-
 }

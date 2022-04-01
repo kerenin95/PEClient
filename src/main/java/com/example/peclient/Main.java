@@ -9,8 +9,6 @@ import java.util.Objects;
 public class Main extends Application {
     public static boolean isInternetUp;
     private static Stage stage;
-    public static String SplashGuide = "SplashGuideController";
-    public static String SplashAssign = "splash-guide.fxml";
 
     public static void main(String[] args){
         launch();
@@ -25,10 +23,10 @@ public class Main extends Application {
         * */
         Main.stage = stage;
         ScreenController mainView = new ScreenController();
-        mainView.loadScreen(ScreenList.SPLASHSCREEN.name, ScreenList.SPLASHSCREEN.assignment);
-        mainView.loadScreen(ScreenList.SPLASHWAIT.name, ScreenList.SPLASHWAIT.assignment);
-        mainView.loadScreen(SplashGuide, SplashAssign);
-        mainView.loadScreen(ScreenList.MAINUI.name, ScreenList.MAINUI.assignment);
+        mainView.loadScreen(ScreenList.SPLASHVIEW.name, ScreenList.SPLASHVIEW.assignment);
+        mainView.loadScreen(ScreenList.LOADSCREEN.name, ScreenList.LOADSCREEN.assignment);
+        mainView.loadScreen(ScreenList.SPLASHGUIDE.name, ScreenList.SPLASHGUIDE.assignment);
+        mainView.loadScreen(ScreenList.MAINVIEW.name, ScreenList.MAINVIEW.assignment);
 
         stage.setTitle("Personal Email Client");
         Scene scene = new Scene(mainView, 1080, 600);
@@ -36,8 +34,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
-        mainView.setScreen(ScreenList.SPLASHSCREEN.name);
-        System.out.println("Set main screen");
+        mainView.setScreen(ScreenList.SPLASHVIEW.name);
         stage.show();
     }
 

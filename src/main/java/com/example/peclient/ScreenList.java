@@ -4,10 +4,10 @@ package com.example.peclient;
 * Controls connectors between displayed screen, inputs to Main and connects to view controllers
 * */
 public enum ScreenList {
-    SPLASHSCREEN("SplashViewController", "splash-view.fxml"),
-    SPLASHWAIT("LoadScreenController", "load-screen.fxml"),
+    SPLASHVIEW("SplashViewController", "splash-view.fxml"),
+    LOADSCREEN("LoadScreenController", "load-screen.fxml"),
     SPLASHGUIDE("SplashGuideController", "splash-guide.fxml"),
-    MAINUI("MainViewController", "main-view.fxml");
+    MAINVIEW("MainViewController", "main-view.fxml");
 
     public final String name;
     public final String assignment;

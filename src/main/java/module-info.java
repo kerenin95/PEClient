@@ -1,25 +1,22 @@
 module com.example.peclient {
+    requires javafx.graphics;
     requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.web;
-
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+    requires com.google.api.services.gmail;
+    requires mail;
     requires com.jfoenix;
-    requires google.oauth.client;
-    requires google.oauth.client.java6;
-    requires google.oauth.client.jetty;
     requires google.api.client;
     requires google.http.client;
-    requires google.http.client.jackson2;
-    requires google.api.services.gmail.v1.rev62;
-    requires java.sql;
-    requires javax.mail.api;
-    requires java.desktop;
     requires activation;
+    requires java.sql;
+    requires javafx.fxml;
+    requires com.google.api.client.auth;
+    requires com.google.api.client.extensions.java6.auth;
+    requires com.google.api.client.extensions.jetty.auth;
+    requires com.google.api.client.json.gson;
+    requires org.controlsfx.controls;
+    requires javafx.web;
+    requires google.http.client.jackson2;
+
 
     opens com.example.peclient to javafx.fxml;
     exports com.example.peclient;

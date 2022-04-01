@@ -48,7 +48,7 @@ public class LoadScreenController implements Screen{
         backgroundTasks.setOnSucceeded(event -> {
             if(backgroundTasks.getValue()) {
                 Main.getStage().setResizable(true);
-                myController.setScreen(ScreenList.MAINUI.name);
+                myController.setScreen(ScreenList.MAINVIEW.name);
                 new SynchronizeMessages().partialSync();
             }
         });

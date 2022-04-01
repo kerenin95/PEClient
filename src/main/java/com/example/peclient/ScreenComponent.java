@@ -418,7 +418,7 @@ public class ScreenComponent extends GridPane {
         restore = new JFXButton("Restore");
         deleteInboxMessage = new JFXButton();
         deleteSentMessage = new JFXButton();
-        ImageView deleteImage = new ImageView(new Image(getClass().getResourceAsStream("/delete.png")));
+        ImageView deleteImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("delete.png"))));
         deleteImage.setFitWidth(20);
         deleteImage.setFitHeight(20);
         deleteInboxMessage.setGraphic(deleteImage);
