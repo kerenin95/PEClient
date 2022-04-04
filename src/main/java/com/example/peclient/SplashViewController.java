@@ -36,7 +36,6 @@ public class SplashViewController implements Screen{
             }
         };
 
-
         FadeTransition fadein = new FadeTransition(Duration.seconds(4),gmailLogo);
         fadein.setFromValue(0.3);
         fadein.setToValue(1);
@@ -114,6 +113,7 @@ public class SplashViewController implements Screen{
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
+
         myController = screenPage;
     }
 }

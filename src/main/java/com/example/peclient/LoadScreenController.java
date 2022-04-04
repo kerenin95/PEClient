@@ -27,12 +27,15 @@ public class LoadScreenController implements Screen{
     void initialize(){
 
         backgroundTasks = new Task<>() {
+
             @Override
             protected Boolean call() throws Exception {
-                try {
-                    Login.startAuthentication();
-                    new SynchronizeMessages().fullSync();
 
+                try {
+
+                    Login.startAuthentication();
+                    System.out.println("Login Success");
+                    //new SynchronizeMessages().fullSync();
                 } catch (IOException e) {
                     e.printStackTrace();
                     System.out.println("Internet Error at splashWait Task");
