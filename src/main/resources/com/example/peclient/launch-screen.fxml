@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="bottomBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="600.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.111"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.peclient.SplashViewController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.peclient.LaunchScreenController">
     <StackPane fx:id="topBackground" layoutY="-400.0" prefHeight="600.0" prefWidth="1080.0"
                style="-fx-background-color: #0091EA;" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-600.0">

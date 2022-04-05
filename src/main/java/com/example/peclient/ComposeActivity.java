@@ -276,7 +276,7 @@ public class ComposeActivity {
                     attachFilesToUI(files);
                 }
                 else{
-                    NotifyUser.getNotification("Attention", "Attachments size exceeded the limit of 35mb").showWarning();
+                    NotificationBuilder.getNotification("Attention", "Attachments size exceeded the limit of 35mb").showWarning();
                 }
             }
         });

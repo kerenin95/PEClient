@@ -74,23 +74,23 @@ public class CustomListCellView1 {
     }
 
     public void setInfo(FormattedMessage formattedMessage){
-        TextDraw td = null ;
+        MaterialStyleGuide td = null ;
         subject.setText(formattedMessage.getSubject());
         switch(labelId){
             case "INBOX" : name.setText(formattedMessage.getFrom());
-                td = new TextDraw(formattedMessage.getFromProfilePicString(), profilePic);
+                td = new MaterialStyleGuide(formattedMessage.getFromProfilePicString(), profilePic);
                 break;
             case "SENT" : name.setText(formattedMessage.getTo());
-                td = new TextDraw(formattedMessage.getToProfilePicString(), profilePic);
+                td = new MaterialStyleGuide(formattedMessage.getToProfilePicString(), profilePic);
                 break;
             case "DRAFT" : name.setText(formattedMessage.getTo());
-                td = new TextDraw(formattedMessage.getToProfilePicString(), profilePic);
+                td = new MaterialStyleGuide(formattedMessage.getToProfilePicString(), profilePic);
                 break;
             case "TRASH" : name.setText(formattedMessage.getFrom());
-                td = new TextDraw(formattedMessage.getFromProfilePicString(), profilePic);
+                td = new MaterialStyleGuide(formattedMessage.getFromProfilePicString(), profilePic);
         }
         //profilePic.setImage(new Image(getClass().getResourceAsStream("/account_circle_grey_192x192.png")));
-        //TextDraw td = new TextDraw(data.getProfilePicString(), profilePic);
+        //MaterialStyleGuide td = new MaterialStyleGuide(data.getProfilePicString(), profilePic);
         td.buildCircularTextImage();
 
         dateText.setText(formattedMessage.getDate());

@@ -20,10 +20,10 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 
-public class MainViewController implements Screen{
+public class HomePageController implements Screen {
 
     static ScreenController myController;
-    private ScreenComponent screenComponent;
+    private ScreenComponents screenComponents;
     private boolean componentFlag;
     private String currentFolderName;
     private String previousFolderName;
@@ -79,9 +79,9 @@ public class MainViewController implements Screen{
     void logoutFromGmail(ActionEvent event) {
         try {
             java.io.File DATA_STORE_FILE = new java.io.File(
-                    System.getProperty("user.home"), ".credentials/Amail/StoredCredential");
+                    System.getProperty("user.home"), ".credentials/email_credentials/StoredCredential");
             DATA_STORE_FILE.delete();
-            HelperValues.deleteHelperValue(HelperValues.loggedIn);
+            DatabaseConnectors.deleteHelperValue(DatabaseConnectors.loggedIn);
             System.exit(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -129,8 +129,8 @@ public class MainViewController implements Screen{
         previousFolderName = null;
 
         inboxButtonParent.setStyle("-fx-background-color: #ffffff");
-        screenComponent = ScreenComponent.getInstance();
-        //screenComponent.setGridLinesVisible(true);
+        screenComponents = ScreenComponents.getInstance();
+        //screenComponents.setGridLinesVisible(true);
         componentFlag = false;
 
 
@@ -283,10 +283,10 @@ public class MainViewController implements Screen{
                 if (newValue != null) {
                     if (!componentFlag) {
                         componentFlag = true;
-                        screenComponent.setScreenComponent(currentFolderName, inboxMessageListView.getSelectionModel().getSelectedIndex());
+                        screenComponents.setScreenComponent(currentFolderName, inboxMessageListView.getSelectionModel().getSelectedIndex());
                         setScreenComponent();
                     }
-                    screenComponent.setInfo(newValue);
+                    screenComponents.setInfo(newValue);
                 }
             }
         });
@@ -299,7 +299,7 @@ public class MainViewController implements Screen{
                     GmailMessages.inboxMessages.addAll(GmailOperations.getInboxMessages(10));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });*/
@@ -324,10 +324,10 @@ public class MainViewController implements Screen{
                 if (newValue != null) {
                     if (!componentFlag) {
                         componentFlag = true;
-                        screenComponent.setScreenComponent(currentFolderName, sentMessageListView.getSelectionModel().getSelectedIndex());
+                        screenComponents.setScreenComponent(currentFolderName, sentMessageListView.getSelectionModel().getSelectedIndex());
                         setScreenComponent();
                     }
-                    screenComponent.setInfo(newValue);
+                    screenComponents.setInfo(newValue);
                 }
             }
         });
@@ -340,7 +340,7 @@ public class MainViewController implements Screen{
                     GmailMessages.sentMessages.addAll(GmailOperations.getSentMessages(10));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });*/
@@ -366,10 +366,10 @@ public class MainViewController implements Screen{
                 if (newValue != null) {
                     if (!componentFlag) {
                         componentFlag = true;
-                        screenComponent.setScreenComponent(currentFolderName);
+                        screenComponents.setScreenComponent(currentFolderName);
                         setScreenComponent();
                     }
-                    screenComponent.setInfo(newValue);
+                    screenComponents.setInfo(newValue);
                 }
             }
         });
@@ -395,10 +395,10 @@ public class MainViewController implements Screen{
                 if (newValue != null) {
                     if (!componentFlag) {
                         componentFlag = true;
-                        screenComponent.setScreenComponent(currentFolderName);
+                        screenComponents.setScreenComponent(currentFolderName);
                         setScreenComponent();
                     }
-                    screenComponent.setInfo(newValue);
+                    screenComponents.setInfo(newValue);
                 }
             }
         });
@@ -423,10 +423,10 @@ public class MainViewController implements Screen{
                 if (newValue != null) {
                     if (!componentFlag) {
                         componentFlag = true;
-                        screenComponent.setScreenComponent(currentFolderName);
+                        screenComponents.setScreenComponent(currentFolderName);
                         setScreenComponent();
                     }
-                    screenComponent.setInfo(newValue);
+                    screenComponents.setInfo(newValue);
                 }
             }
         });
@@ -474,7 +474,7 @@ public class MainViewController implements Screen{
 
     public void setScreenComponent(){
         removeScreenComponent();
-        componentDisplayContainer.getChildren().add(0,screenComponent);
+        componentDisplayContainer.getChildren().add(0, screenComponents);
 
 
     }

@@ -27,9 +27,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class ScreenComponent extends GridPane {
+public class ScreenComponents extends GridPane {
 
-    private static ScreenComponent screenComponent;
+    private static ScreenComponents screenComponents;
     private static StackPane componentParent;
     private static BorderPane inboxComponent;
     private static BorderPane draftComponent;
@@ -57,13 +57,13 @@ public class ScreenComponent extends GridPane {
     private FormattedMessage formattedMessage = null;
     int index;
 
-    public ScreenComponent(){
+    public ScreenComponents(){
         initComponent();
     }
 
     private void setActions(){
         attachments.setOnAction(event -> {
-            JFXSnackbar snackbar = new JFXSnackbar(MainViewController.getScreenParent());
+            JFXSnackbar snackbar = new JFXSnackbar(HomePageController.getScreenParent());
             //snackbar.show("Downloading", 2000);
 
             Task<Void> downloadAttachments = new Task<Void>() {
@@ -75,7 +75,7 @@ public class ScreenComponent extends GridPane {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    NotifyUser.getNotification("Attachments Downloaded", "" + attachmentsList.size() + " Attachments successfully downloaded to" + System.getProperty("user.home")).showInformation();
+                                    NotificationBuilder.getNotification("Attachments Downloaded", "" + attachmentsList.size() + " Attachments successfully downloaded to" + System.getProperty("user.home")).showInformation();
 
                                 }
                             });
@@ -83,7 +83,7 @@ public class ScreenComponent extends GridPane {
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    JFXSnackbar snackbar = new JFXSnackbar(MainViewController.getScreenParent());
+                                    JFXSnackbar snackbar = new JFXSnackbar(HomePageController.getScreenParent());
                                     //snackbar.show("No attachments with this mail", 5000);
                                 }
                             });
@@ -93,7 +93,7 @@ public class ScreenComponent extends GridPane {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                                NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                             }
                         });
                     }
@@ -117,7 +117,7 @@ public class ScreenComponent extends GridPane {
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Change it with sneckbar");
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });
@@ -131,7 +131,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(HomePageController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -144,7 +144,7 @@ public class ScreenComponent extends GridPane {
                     GmailOperations.untrashMessage(formattedMessage.getMessageId());
 
                 } catch (IOException e) {
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });
@@ -152,12 +152,12 @@ public class ScreenComponent extends GridPane {
         zoomMail.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ZoomInMailView zoomInMailView = new ZoomInMailView();
+                MailNavigation mailNavigation = new MailNavigation();
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
-                content.setBody(zoomInMailView.getContainer());
-                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
-                zoomInMailView.setInfo(formattedMessage.getBodyText(),dialog);
+                content.setBody(mailNavigation.getContainer());
+                JFXDialog dialog = new JFXDialog(HomePageController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                mailNavigation.setInfo(formattedMessage.getBodyText(),dialog);
                 dialog.show();
                 dialog.setOverlayClose(false);
             }
@@ -171,7 +171,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(HomePageController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -185,7 +185,7 @@ public class ScreenComponent extends GridPane {
                 JFXDialogLayout content = new JFXDialogLayout();
                 content.setHeading(new Text("Compose"));
                 content.setBody(composeActivity.getContent());
-                JFXDialog dialog = new JFXDialog(MainViewController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
+                JFXDialog dialog = new JFXDialog(HomePageController.getScreenParent(), content,JFXDialog.DialogTransition.CENTER);
                 composeActivity.setAction(dialog);
                 dialog.show();
             }
@@ -195,7 +195,7 @@ public class ScreenComponent extends GridPane {
 
     private void initComponent(){
         initVariables();
-        //this.getStylesheets().add(controllers.ScreenComponent.class.getResource("/uiComponents.css").toExternalForm());
+        //this.getStylesheets().add(controllers.ScreenComponents.class.getResource("/uiComponents.css").toExternalForm());
         ColumnConstraints column0 = new ColumnConstraints(10,100,USE_COMPUTED_SIZE);
         ColumnConstraints column1 = new ColumnConstraints(10,100,USE_COMPUTED_SIZE);
         //column0.setHgrow(Priority.ALWAYS);
@@ -217,7 +217,7 @@ public class ScreenComponent extends GridPane {
         sentComponent = setSentComponent();
         trashComponent = setTrashComponent();
         setScreenComponent("INBOX");
-        //screenComponent.setGridLinesVisible(true);
+        //screenComponents.setGridLinesVisible(true);
 
         setActions();
 
@@ -321,7 +321,7 @@ public class ScreenComponent extends GridPane {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });
@@ -375,7 +375,7 @@ public class ScreenComponent extends GridPane {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                    NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
                 }
             }
         });
@@ -483,7 +483,7 @@ public class ScreenComponent extends GridPane {
             e.printStackTrace();
             if(Main.isInternetUp){
                 Main.isInternetUp = false;
-                NotifyUser.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
+                NotificationBuilder.getNotification("Internet connection has lost", "Please check your internet connection").showInformation();
             }
         }
         subjectLabel.setText(formattedMessage.getSubject());
@@ -504,10 +504,10 @@ public class ScreenComponent extends GridPane {
         button.setTextFill(Paint.valueOf("WHITE"));
     }
 
-    public static ScreenComponent getInstance(){
-        if(screenComponent == null)
-            screenComponent = new ScreenComponent();
-        return screenComponent;
+    public static ScreenComponents getInstance(){
+        if(screenComponents == null)
+            screenComponents = new ScreenComponents();
+        return screenComponents;
     }
 
 }

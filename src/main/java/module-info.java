@@ -1,7 +1,6 @@
 module com.example.peclient {
     requires javafx.graphics;
     requires javafx.controls;
-    requires com.google.api.services.gmail;
     requires mail;
     requires com.jfoenix;
     requires google.api.client;
@@ -11,11 +10,11 @@ module com.example.peclient {
     requires javafx.fxml;
     requires com.google.api.client.auth;
     requires com.google.api.client.extensions.java6.auth;
-    requires com.google.api.client.extensions.jetty.auth;
     requires com.google.api.client.json.gson;
-    requires org.controlsfx.controls;
     requires javafx.web;
-    requires google.http.client.jackson2;
+    requires google.oauth.client.jetty;
+    requires controlsfx;
+    requires google.api.services.gmail.v1.rev62;
 
 
     opens com.example.peclient to javafx.fxml;

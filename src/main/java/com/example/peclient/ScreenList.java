@@ -1,13 +1,15 @@
 package com.example.peclient;
 
+import com.google.api.client.http.GenericUrl;
+
 /*
 * Controls connectors between displayed screen, inputs to Main and connects to view controllers
 * */
 public enum ScreenList {
-    SPLASHVIEW("SplashViewController", "splash-view.fxml"),
-    LOADSCREEN("LoadScreenController", "load-screen.fxml"),
-    SPLASHGUIDE("SplashGuideController", "splash-guide.fxml"),
-    MAINVIEW("MainViewController", "main-view.fxml");
+    SPLASHVIEW("LaunchScreenController", "launch-screen.fxml"),
+    LOADSCREEN("AuthorizationScreenController", "authorization-screen.fxml"),
+    SPLASHGUIDE("LoginVerificationScreenController", "login-verification-screen.fxml"),
+    MAINVIEW("HomePageController", "home-page.fxml");
 
     public final String name;
     public final String assignment;

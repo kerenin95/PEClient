@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 
-public class SplashGuideController implements Screen{
+public class LoginVerificationScreenController implements Screen {
 
     public StackPane splashGuide;
     ScreenController myController;
@@ -45,7 +45,7 @@ public class SplashGuideController implements Screen{
             @Override
             public void handle(ActionEvent event) {
                 dialog.close();
-                LoadScreenController.startBackgroundTasks();
+                AuthorizationScreenController.startBackgroundTasks();
                 myController.setScreen(ScreenList.LOADSCREEN.name);
 
             }

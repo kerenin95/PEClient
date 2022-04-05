@@ -19,7 +19,7 @@ public class SaveMessages {
 
     }
     public static void saveInbox(List<FormattedMessage> inboxMessages) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = h2DBConnection.getConnection().prepareStatement("INSERT INTO inbox VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement statement = DatabaseLink.getConnection().prepareStatement("INSERT INTO inbox VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         for(FormattedMessage message: inboxMessages){
             statement.setString(1,message.getMessageId());
             statement.setString(2, message.getThreadId());
@@ -36,7 +36,7 @@ public class SaveMessages {
     }
 
     public static void saveSent(List<FormattedMessage> sentMessages) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = h2DBConnection.getConnection().prepareStatement("INSERT INTO sent VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement statement = DatabaseLink.getConnection().prepareStatement("INSERT INTO sent VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         for(FormattedMessage message: sentMessages){
             statement.setString(1,message.getMessageId());
             statement.setString(2, message.getThreadId());
@@ -53,7 +53,7 @@ public class SaveMessages {
     }
 
     public static void saveDraft(List<FormattedMessage> draftMessages) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = h2DBConnection.getConnection().prepareStatement("INSERT INTO draft VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement statement = DatabaseLink.getConnection().prepareStatement("INSERT INTO draft VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         for(FormattedMessage message: draftMessages){
             statement.setString(1,message.getMessageId());
             statement.setString(2, message.getThreadId());
@@ -70,7 +70,7 @@ public class SaveMessages {
     }
 
     public static void saveTrash(List<FormattedMessage> trashMessages) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = h2DBConnection.getConnection().prepareStatement("INSERT INTO trash VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement statement = DatabaseLink.getConnection().prepareStatement("INSERT INTO trash VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         for(FormattedMessage message: trashMessages){
             statement.setString(1,message.getMessageId());
             statement.setString(2, message.getThreadId());

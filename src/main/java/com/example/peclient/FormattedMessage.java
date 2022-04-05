@@ -69,7 +69,7 @@ public class FormattedMessage {
                     date = header.getValue();
                     break;
                 case "Subject":
-                    subject = /*utfThreeToFour.toValid3ByteUTF8String(*/header.getValue();//);
+                    subject = /*CharacterEncoder.toValid3ByteUTF8String(*/header.getValue();//);
                     break;
             }
         }

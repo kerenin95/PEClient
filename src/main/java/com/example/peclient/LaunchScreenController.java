@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class SplashViewController implements Screen{
+public class LaunchScreenController implements Screen {
     public AnchorPane bottomBackground;
     ScreenController myController;
 
@@ -75,10 +75,10 @@ public class SplashViewController implements Screen{
             public void handle(WorkerStateEvent event) {
                 slideLeft.play();
                 if(checkNextScreen.getValue()) {
-                    LoadScreenController.startBackgroundTasks();
+                    AuthorizationScreenController.startBackgroundTasks();
                     try {
                         myController.setScreen(ScreenList.SPLASHVIEW.name);
-                        LoadScreenController.installed = true;
+                        AuthorizationScreenController.installed = true;
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -104,7 +104,7 @@ public class SplashViewController implements Screen{
 
     public boolean skipSplashGuide(){
         try{
-            return HelperValues.getHelperValues(HelperValues.loggedIn).equals("true");
+            return DatabaseConnectors.getHelperValues(DatabaseConnectors.loggedIn).equals("true");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,7 +113,6 @@ public class SplashViewController implements Screen{
 
     @Override
     public void setScreenParent(ScreenController screenPage) {
-
         myController = screenPage;
     }
 }

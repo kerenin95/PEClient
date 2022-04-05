@@ -3,8 +3,8 @@ package com.example.peclient;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InitDbTables {
-    public InitDbTables(){
+public class DatabaseTableInit {
+    public DatabaseTableInit(){
         initTables();
 
     }
@@ -34,7 +34,7 @@ public class InitDbTables {
                 "mailDate Varchar(1000) NOT NULL," +
                 "subject Varchar(10000) , " +
                 "isUnread int NOT NULL);";
-        Statement statement = h2DBConnection.getConnection().createStatement();
+        Statement statement = DatabaseLink.getConnection().createStatement();
         statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
         statement.close();
@@ -51,7 +51,7 @@ public class InitDbTables {
                 "mailDate Varchar(1000) NOT NULL," +
                 "subject Varchar(10000), " +
                 "isUnread int NOT NULL);";
-        Statement statement = h2DBConnection.getConnection().createStatement();
+        Statement statement = DatabaseLink.getConnection().createStatement();
         statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
         statement.close();
@@ -68,7 +68,7 @@ public class InitDbTables {
                 "mailDate Varchar(1000) NOT NULL," +
                 "subject Varchar(10000), " +
                 "isUnread int);";
-        Statement statement = h2DBConnection.getConnection().createStatement();
+        Statement statement = DatabaseLink.getConnection().createStatement();
         statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
         statement.close();
@@ -85,7 +85,7 @@ public class InitDbTables {
                 "mailDate Varchar(1000) NOT NULL," +
                 "subject Varchar(10000), " +
                 "isUnread int);";
-        Statement statement = h2DBConnection.getConnection().createStatement();
+        Statement statement = DatabaseLink.getConnection().createStatement();
         statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
         statement.close();
@@ -97,7 +97,7 @@ public class InitDbTables {
                 "(name varchar(100) NOT NULL, " +
                 "pairValue varchar(100) NOT NULL, " +
                 "PRIMARY KEY(name));";
-        Statement statement = h2DBConnection.getConnection().createStatement();
+        Statement statement = DatabaseLink.getConnection().createStatement();
         statement.executeUpdate(sql1);
         statement.executeUpdate(sql2);
     }

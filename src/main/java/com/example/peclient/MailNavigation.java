@@ -14,7 +14,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
-public class ZoomInMailView {
+public class MailNavigation {
     BorderPane container;
     WebView webView ;
     WebEngine webEngine;
@@ -23,7 +23,7 @@ public class ZoomInMailView {
     JFXDialog d;
     String body;
 
-    public ZoomInMailView(){
+    public MailNavigation(){
         container = new BorderPane();
         container.setPrefHeight(600);
         container.setPrefWidth(800);

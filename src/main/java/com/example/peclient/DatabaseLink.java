@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class h2DBConnection {
+public class DatabaseLink {
     private static Connection connection;
     private static final String JDBC_DRIVER = "org.h2.Driver";
     private static final String url = "jdbc:h2:./gmail";

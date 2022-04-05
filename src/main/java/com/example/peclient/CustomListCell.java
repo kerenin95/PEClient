@@ -8,12 +8,9 @@ import javafx.scene.layout.GridPane;
 public class CustomListCell extends JFXListCell<FormattedMessage> {
 
     private final CustomListCellView1 clcv;
-    private GridPane container = null;
-    private final String labelId;
 
     public CustomListCell(String labelId) {
         super();
-        this.labelId = labelId;
         clcv = new CustomListCellView1(labelId);
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -24,12 +21,11 @@ public class CustomListCell extends JFXListCell<FormattedMessage> {
 
     }
 
-
     @Override
     public void updateItem(FormattedMessage data, boolean empty) {
         super.updateItem(data, empty);
         if (data != null && !empty) {
-            container = clcv.getListCellBox();
+            GridPane container = clcv.getListCellBox();
             container.setMouseTransparent(true);
             clcv.setInfo(data);
             this.setPrefWidth(0);

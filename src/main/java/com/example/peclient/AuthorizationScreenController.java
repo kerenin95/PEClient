@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class LoadScreenController implements Screen{
+public class AuthorizationScreenController implements Screen {
 
     ScreenController myController;
     public static boolean installed;
@@ -32,15 +32,14 @@ public class LoadScreenController implements Screen{
             protected Boolean call() throws Exception {
 
                 try {
-
-                    Login.startAuthentication();
-                    System.out.println("Login Success");
-                    //new SynchronizeMessages().fullSync();
+                    GoogleAuthorizationLogin.startAuthentication();
+                    System.out.println("GoogleAuthorizationLogin Success");
+                    new SynchronizeMessages().fullSync();
                 } catch (IOException e) {
                     e.printStackTrace();
                     System.out.println("Internet Error at splashWait Task");
                     Main.isInternetUp = false;
-                    Platform.runLater(() -> NotifyUser.getNotification("Internet Connection has lost",
+                    Platform.runLater(() -> NotificationBuilder.getNotification("Internet Connection has lost",
                             "Please check your internet connection").showInformation());
                     return false;
                 }

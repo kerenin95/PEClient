@@ -1,6 +1,6 @@
 package com.example.peclient;
 
-public class utfThreeToFour {
+public class CharacterEncoder {
 
     public static final String LAST_3_BYTE_UTF_CHAR = "\uFFFF";
     public static final String REPLACEMENT_CHAR = "\uFFFD";
@@ -12,13 +12,13 @@ public class utfThreeToFour {
             final int codepoint = s.codePointAt(offset);
 
             // do something with the codepoint
-            if (codepoint > utfThreeToFour.LAST_3_BYTE_UTF_CHAR.codePointAt(0)) {
-                b.append(utfThreeToFour.REPLACEMENT_CHAR);
+            if (codepoint > CharacterEncoder.LAST_3_BYTE_UTF_CHAR.codePointAt(0)) {
+                b.append(CharacterEncoder.REPLACEMENT_CHAR);
             } else {
                 if (Character.isValidCodePoint(codepoint)) {
                     b.appendCodePoint(codepoint);
                 } else {
-                    b.append(utfThreeToFour.REPLACEMENT_CHAR);
+                    b.append(CharacterEncoder.REPLACEMENT_CHAR);
                 }
             }
             offset += Character.charCount(codepoint);

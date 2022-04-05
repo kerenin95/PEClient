@@ -12,15 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Ashok on 4/29/2017.
- */
-public class TextDraw{
+public class MaterialStyleGuide {
     String text;
     StackPane parent;
     Canvas canvas;
     GraphicsContext gc;
-    public TextDraw(String text, StackPane parent){
+    public MaterialStyleGuide(String text, StackPane parent){
         this.text = text.toUpperCase();
         this.parent = parent;
         canvas = new Canvas(50, 50);
