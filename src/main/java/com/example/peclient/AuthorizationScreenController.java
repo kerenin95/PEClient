@@ -33,7 +33,7 @@ public class AuthorizationScreenController implements Screen {
 
                 try {
                     GoogleAuthorizationLogin.startAuthentication();
-                    System.out.println("GoogleAuthorizationLogin Success");
+                    System.out.println("Google Authorization Login Success");
                     new SynchronizeMessages().fullSync();
                 } catch (IOException e) {
                     e.printStackTrace();

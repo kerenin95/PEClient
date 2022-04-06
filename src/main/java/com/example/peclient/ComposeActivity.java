@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ComposeActivity {
 
@@ -151,7 +152,7 @@ public class ComposeActivity {
 
 
         HBox childContainer6 = new HBox();
-        ImageView attachPinImage = new ImageView(new Image(getClass().getResourceAsStream("/ic_attach_file_black.png")));
+        ImageView attachPinImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/ic_attach_file_black.png"))));
         attachPinImage.setFitHeight(20);
         attachPinImage.setFitWidth(20);
         attachFile.setGraphic(attachPinImage);

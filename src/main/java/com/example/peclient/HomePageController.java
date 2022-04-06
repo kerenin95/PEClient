@@ -81,7 +81,7 @@ public class HomePageController implements Screen {
             java.io.File DATA_STORE_FILE = new java.io.File(
                     System.getProperty("user.home"), ".credentials/email_credentials/StoredCredential");
             DATA_STORE_FILE.delete();
-            DatabaseConnectors.deleteHelperValue(DatabaseConnectors.loggedIn);
+            //DatabaseConnectors.deleteHelperValue(DatabaseConnectors.loggedIn);
             System.exit(1);
         }catch (Exception e){
             e.printStackTrace();

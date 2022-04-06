@@ -62,7 +62,6 @@ public class GoogleAuthorizationLogin {
 
         // authorize
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(9089).build();
-        System.out.println("flow: " + flow + "\n" + "receiver: " + receiver);
         AuthorizationCodeInstalledApp app = new AuthorizationCodeInstalledApp(flow, receiver);
 
         Credential credential = null;
@@ -71,7 +70,6 @@ public class GoogleAuthorizationLogin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Credential received: " + credential);
         return credential;
     }
 }
