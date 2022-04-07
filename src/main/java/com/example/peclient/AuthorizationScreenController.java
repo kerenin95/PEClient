@@ -9,6 +9,10 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
+/**
+ * Allows all authorizations to be controlled
+ * Syncs with Gmail with message request batches
+ */
 public class AuthorizationScreenController implements Screen {
 
     ScreenController myController;
@@ -23,6 +27,9 @@ public class AuthorizationScreenController implements Screen {
     @FXML
     private Label splashWaitLabel;
 
+    /**
+     * Asynchronously runs Google authentication and Syncs messages from Gmail to Controller
+     */
     @FXML
     void initialize(){
 
@@ -58,6 +65,9 @@ public class AuthorizationScreenController implements Screen {
 
     }
 
+    /**
+     *
+     */
     public static void startBackgroundTasks(){
         Thread bgTasks = new Thread(backgroundTasks);
         bgTasks.setDaemon(true);

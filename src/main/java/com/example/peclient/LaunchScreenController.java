@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * Sets initial async tasks and loading visuals for client
+ */
 public class LaunchScreenController implements Screen {
     public AnchorPane bottomBackground;
     ScreenController myController;
@@ -27,6 +30,9 @@ public class LaunchScreenController implements Screen {
 
     }
 
+    /**
+     * Presentation for user while loading next pane and async tasks
+     */
     public void splashAnimations(){
 
         Task<Boolean> checkNextScreen = new Task<Boolean>() {

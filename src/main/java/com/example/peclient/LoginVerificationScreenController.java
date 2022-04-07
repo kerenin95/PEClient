@@ -11,6 +11,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 
+/**
+ * Warns user to accept Google authentication
+ * Starts OAuth processes with Gmail
+ */
 public class LoginVerificationScreenController implements Screen {
 
     public StackPane splashGuide;
@@ -32,6 +36,9 @@ public class LoginVerificationScreenController implements Screen {
 
     }
 
+    /**
+     * Display warning dialog to user for authentication to begin
+     */
     //this methods shows the information dialog box from where authentication starts
     public void showInfoDialog(){
         JFXDialogLayout content = new JFXDialogLayout();

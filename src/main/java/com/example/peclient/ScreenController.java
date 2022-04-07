@@ -14,9 +14,10 @@ import javafx.util.Duration;
 
 import java.util.HashMap;
 
-/*
-* Set-up for screens allowing them to be loaded and set
-* */
+/**
+ * Object to store multiple screens for PreLoaded screen switching
+ * Allowing multiple screens to be displayed, removed, or added
+ */
 public class ScreenController extends StackPane {
 
     private final HashMap<String, Node> screens = new HashMap<>();
@@ -33,6 +34,11 @@ public class ScreenController extends StackPane {
         return screens.get(name);
     }
 
+    /**
+     * Loads screen into ScreenList through the addScreen method
+     * @param name - Sets Key-name for screen in Screens
+     * @param resource - associated resource FXML file
+     */
     public void loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -46,6 +52,10 @@ public class ScreenController extends StackPane {
         }
     }
 
+    /**
+     * Sets screen from Screens as primary allowing it to take over presentation for client view
+     * @param name - Key-name for screen to be displayed from Screens
+     */
     public void setScreen(final String name) {
         try {
             if (screens.get(name) != null) {

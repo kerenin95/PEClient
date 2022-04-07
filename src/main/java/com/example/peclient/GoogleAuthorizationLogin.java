@@ -17,6 +17,10 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+/**
+ * Creates OAuth 2.0 process with Gmail API Developer Console
+ * Yields full service class to authenticate with Google
+ */
 public class GoogleAuthorizationLogin {
 
 
@@ -35,6 +39,10 @@ public class GoogleAuthorizationLogin {
 
     static Gmail service;
 
+    /**
+     * @throws GeneralSecurityException - error if credential fails to save locally
+     * @throws IOException - if local JSON file fails to create
+     */
     public static void startAuthentication() throws GeneralSecurityException, IOException {
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
@@ -46,6 +54,10 @@ public class GoogleAuthorizationLogin {
                 .build();
     }
 
+    /**
+     * @return - credential to use for authentication service with token
+     * @throws IOException - if credential fails to save locally
+     */
     private static Credential authorize() throws IOException {
         // load client secrets
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,

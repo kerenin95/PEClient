@@ -6,21 +6,21 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * Entry point for program with main method
+ */
 public class Main extends Application {
     public static boolean isInternetUp;
     private static Stage stage;
 
-    public static void main(String[] args){
-        launch();
-    }
+    public static void main(String[] args){launch();}
 
+    /**
+     * PreLoads all screens and stylesheets, sets window params
+     * @param stage - parent view for client
+     */
     @Override
     public void start(Stage stage) {
-        /*
-        * Main Entrypoint for email client
-        * @param takes stage
-        * @return sets the screen view on program launch
-        * */
         Main.stage = stage;
         ScreenController mainView = new ScreenController();
         mainView.loadScreen(ScreenList.SPLASHVIEW.name, ScreenList.SPLASHVIEW.assignment);
