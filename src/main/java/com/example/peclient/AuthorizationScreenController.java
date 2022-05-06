@@ -10,8 +10,11 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 
 /**
- * Allows all authorizations to be controlled
- * Syncs with Gmail with message request batches
+ * @author bber9
+ * @group PEClient
+ * @description Middle layer between Google OAuth2 login and Client
+ * View that displays connection pending and progress
+ * Runs Google Auth
  */
 public class AuthorizationScreenController implements Screen {
 
@@ -27,14 +30,16 @@ public class AuthorizationScreenController implements Screen {
     @FXML
     private Label splashWaitLabel;
 
-    /**
-     * Asynchronously runs Google authentication and Syncs messages from Gmail to Controller
-     */
     @FXML
     void initialize(){
 
         backgroundTasks = new Task<>() {
 
+            /**
+             * @description connects to Google Auth server and syncs emails else displays error msg
+             * @return true if connection is successfully with Google
+             * @throws Exception if error occurs
+             */
             @Override
             protected Boolean call() throws Exception {
 
@@ -66,7 +71,7 @@ public class AuthorizationScreenController implements Screen {
     }
 
     /**
-     *
+     * Runs multithreading for connections
      */
     public static void startBackgroundTasks(){
         Thread bgTasks = new Thread(backgroundTasks);
@@ -74,6 +79,9 @@ public class AuthorizationScreenController implements Screen {
         bgTasks.start();
     }
 
+    /**
+     * @param screenPage moves screen to mainView on success
+     */
     @Override
     public void setScreenParent(ScreenController screenPage) {
         myController = screenPage;

@@ -27,6 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author bber9
+ * @description runs as middle layer between google servers and homePage view
+ * allows display for emails and preview
+ */
 public class ComposeActivity {
 
     private Stage stage;
@@ -60,9 +65,16 @@ public class ComposeActivity {
     FileChooser fileChooser = new FileChooser();
 
 
-    public ComposeActivity(FormattedMessage m, Message message, boolean isEditDraft, boolean isForward){
-        formattedMessage = m;
-        this.message = message;
+    /**
+     * @description constructor for creation of email composition
+     * @param message message preview
+     * @param messageContent message content
+     * @param isEditDraft checks if email is in draft mode(not sent)
+     * @param isForward checks if email has been forwarded or is direct from sender
+     */
+    public ComposeActivity(FormattedMessage message, Message messageContent, boolean isEditDraft, boolean isForward){
+        formattedMessage = message;
+        this.message = messageContent;
         this.isEditDraft = isEditDraft;
         this.isForward = isForward;
         sceneLayout();}
@@ -70,6 +82,9 @@ public class ComposeActivity {
     public  VBox getContent(){  return parentContainer;}
 
 
+    /**
+     * @description download emails to user /temp folder
+     */
     public void setInfo(){
         List<File> previouslyAddedAttachments = null;
         if(formattedMessage != null && message != null){
@@ -101,6 +116,9 @@ public class ComposeActivity {
     }
 
 
+    /**
+     * @description animations for homepage email list view and optional scrollbar(if needed)
+     */
     public void sceneLayout(){
 
         parentContainer.setPrefHeight(430);
@@ -195,7 +213,13 @@ public class ComposeActivity {
 
     }
 
-    public void setAction(JFXDialog d){
+    /**
+     * @description gets identifying information from email
+     * any attachments associated with email
+     * and draft information if needed
+     * @param dialog email information to present to view when clicked on
+     */
+    public void setAction(JFXDialog dialog){
         sendButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -204,7 +228,7 @@ public class ComposeActivity {
                 try {
                     if(checkEmptyValues()) {
                         GmailOperations.sendMessage(to, from, sub, body, isHtml.isSelected(), attachments);
-                        d.close();
+                        dialog.close();
                     }
                     else{
                         snackbar = new JFXSnackbar(parentContainer);
@@ -250,7 +274,7 @@ public class ComposeActivity {
                         e.printStackTrace();
                     }
                 }
-                d.close();
+                dialog.close();
             }
         });
 
@@ -258,7 +282,7 @@ public class ComposeActivity {
         discardButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                d.close();
+                dialog.close();
             }
         });
 
@@ -284,6 +308,11 @@ public class ComposeActivity {
 
     }
 
+    /**
+     * @description downloads files safely based on size
+     * @param files input of files to download (of any file type from email)
+     * @return check file size for safe downloading
+     */
     public boolean checkFilesSize(List<File> files){
         long size = 0;
         for(File file: files){
@@ -297,6 +326,10 @@ public class ComposeActivity {
         return false;
     }
 
+    /**
+     * @description allows files view from get all attachments button on main screen
+     * @param fileList file stream established to present in view
+     */
     public void attachFilesToUI(List<File> fileList){
         for(File f: fileList){
             Button b = new Button(f.getName());
@@ -313,23 +346,25 @@ public class ComposeActivity {
         }
     }
 
-
-
-
-    public void setStage(Stage s){
-        stage = s;
+    /**
+     * @description setter method for stage class var
+     * @param stage overview
+     */
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
-
-
-
+    /**
+     * @description checks if email list is empty
+     * @return boolean check
+     */
     public boolean checkEmptyValues(){
         return (toTextField.getText() != null && !toTextField.getText().equals("")) && (fromTextField.getText() != null && fromTextField.getText().equals(""));
     }
 
-
-
-
+    /**
+     * @description checks header information from email for display
+     */
     public void setLocalVariables(){
         if(toTextField.getText() != null)
             to = toTextField.getText();

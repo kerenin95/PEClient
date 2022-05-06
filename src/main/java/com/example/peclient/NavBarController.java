@@ -6,7 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-public class CustomListCellView1 {
+/**
+ * @author bber9
+ * @description visuals for email categories and titles
+ */
+public class NavBarController {
     GridPane listCellBox = new GridPane();
     StackPane profilePic = new StackPane();
     Label name = new Label();
@@ -14,11 +18,17 @@ public class CustomListCellView1 {
     Label dateText = new Label();
     String labelId;
 
-
-    public CustomListCellView1(String labelId) {
+    /**
+     * @description constructor sets the id of the label to be displayed and creates a scene for that label
+     * @param labelId of the category label to be displayed on the navbar
+     */
+    public NavBarController(String labelId) {
         this.labelId = labelId;
         sceneLayout(); }
 
+    /**
+     * @description visual style for nav bar labels
+     */
     public void sceneLayout(){
         ColumnConstraints column0 = new ColumnConstraints(10,45,50);
         ColumnConstraints column1 = new ColumnConstraints(10,120,2048);
@@ -26,12 +36,10 @@ public class CustomListCellView1 {
         column0.setHgrow(Priority.ALWAYS);
         column1.setHgrow(Priority.ALWAYS);
 
-
         BorderPane colParent = new BorderPane();
         profilePic.setPrefWidth(50);
         profilePic.setPrefHeight(50);
         colParent.setCenter(profilePic);
-
 
         VBox colParentContainer = new VBox();
 
@@ -48,31 +56,25 @@ public class CustomListCellView1 {
         HBox.setMargin(dateText, new Insets(0,10,2,0));
         HBox.setHgrow(name, Priority.ALWAYS);
 
-
-
         HBox colChildContainer2 = new HBox();
         subject.setPrefHeight(20);
         subject.setPrefWidth(665);
         //materialize delete button by removing comments
 
-
-
-
         colChildContainer2.getChildren().add(0,subject);
         HBox.setHgrow(subject,Priority.ALWAYS);
-
 
         colParentContainer.getChildren().add(0,colChildContainer1);
         colParentContainer.getChildren().add(1,colChildContainer2);
         listCellBox.add(colParent,0,0);
         listCellBox.add(colParentContainer, 1,0);
-
         listCellBox.setPrefHeight(40);
-
-
-
     }
 
+    /**
+     * @description sets title for each category and style
+     * @param formattedMessage the message type that will be pulled into display
+     */
     public void setInfo(FormattedMessage formattedMessage){
         MaterialStyleGuide td = null ;
         subject.setText(formattedMessage.getSubject());
@@ -89,8 +91,6 @@ public class CustomListCellView1 {
             case "TRASH" : name.setText(formattedMessage.getFrom());
                 td = new MaterialStyleGuide(formattedMessage.getFromProfilePicString(), profilePic);
         }
-        //profilePic.setImage(new Image(getClass().getResourceAsStream("/account_circle_grey_192x192.png")));
-        //MaterialStyleGuide td = new MaterialStyleGuide(data.getProfilePicString(), profilePic);
         td.buildCircularTextImage();
 
         dateText.setText(formattedMessage.getDate());

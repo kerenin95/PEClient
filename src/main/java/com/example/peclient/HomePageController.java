@@ -81,7 +81,7 @@ public class HomePageController implements Screen {
             java.io.File DATA_STORE_FILE = new java.io.File(
                     System.getProperty("user.home"), ".credentials/email_credentials/StoredCredential");
             DATA_STORE_FILE.delete();
-            //DatabaseConnectors.deleteHelperValue(DatabaseConnectors.loggedIn);
+            DatabaseConnectors.deleteHelperValue(DatabaseConnectors.loggedIn);
             System.exit(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -270,7 +270,7 @@ public class HomePageController implements Screen {
         inboxMessageListView.setCellFactory(new Callback<ListView<FormattedMessage>, ListCell<FormattedMessage>>() {
             @Override
             public ListCell<FormattedMessage> call(ListView<FormattedMessage> param) {
-                return new CustomListCell(currentFolderName);
+                return new LabelController(currentFolderName);
             }
         });
         inboxMessageListView.getStylesheets().add(String.valueOf(getClass().getResource("/listview.css")));
@@ -311,7 +311,7 @@ public class HomePageController implements Screen {
         sentMessageListView.setCellFactory(new Callback<ListView<FormattedMessage>, ListCell<FormattedMessage>>() {
             @Override
             public ListCell<FormattedMessage> call(ListView<FormattedMessage> param) {
-                return new CustomListCell(currentFolderName);
+                return new LabelController(currentFolderName);
             }
         });
         sentMessageListView.getStylesheets().add(String.valueOf(getClass().getResource("/listview.css")));
@@ -353,7 +353,7 @@ public class HomePageController implements Screen {
         draftMessageListView.setCellFactory(new Callback<ListView<FormattedMessage>, ListCell<FormattedMessage>>() {
             @Override
             public ListCell<FormattedMessage> call(ListView<FormattedMessage> param) {
-                return new CustomListCell(currentFolderName);
+                return new LabelController(currentFolderName);
             }
         });
         draftMessageListView.getStylesheets().add(String.valueOf(getClass().getResource("/listview.css")));
@@ -382,7 +382,7 @@ public class HomePageController implements Screen {
         trashMessageListView.setCellFactory(new Callback<ListView<FormattedMessage>, ListCell<FormattedMessage>>() {
             @Override
             public ListCell<FormattedMessage> call(ListView<FormattedMessage> param) {
-                return new CustomListCell(currentFolderName);
+                return new LabelController(currentFolderName);
             }
         });
         trashMessageListView.getStylesheets().add(String.valueOf(getClass().getResource("/listview.css")));
@@ -410,7 +410,7 @@ public class HomePageController implements Screen {
         searchMessageListView.setCellFactory(new Callback<ListView<FormattedMessage>, ListCell<FormattedMessage>>() {
             @Override
             public ListCell<FormattedMessage> call(ListView<FormattedMessage> param) {
-                return new CustomListCell(currentFolderName);
+                return new LabelController(currentFolderName);
             }
         });
         searchMessageListView.getStylesheets().add(String.valueOf(getClass().getResource("/listview.css")));

@@ -11,7 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 /**
- * Sets initial async tasks and loading visuals for client
+ * @author bber9
+ * @group PEClient
+ * @description animations and transition effects
  */
 public class LaunchScreenController implements Screen {
     public AnchorPane bottomBackground;
@@ -31,7 +33,7 @@ public class LaunchScreenController implements Screen {
     }
 
     /**
-     * Presentation for user while loading next pane and async tasks
+     * @description Runs animations on start
      */
     public void splashAnimations(){
 
@@ -108,6 +110,9 @@ public class LaunchScreenController implements Screen {
 
     }
 
+    /**
+     * @return log into H2DB
+     */
     public boolean skipSplashGuide(){
         try{
             return DatabaseConnectors.getHelperValues(DatabaseConnectors.loggedIn).equals("true");

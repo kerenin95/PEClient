@@ -5,22 +5,33 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-public class CustomListCell extends JFXListCell<FormattedMessage> {
+/**
+ * @author bber9
+ * @description handles graphics for gmail labels and routing for labels
+ */
+public class LabelController extends JFXListCell<FormattedMessage> {
 
-    private final CustomListCellView1 clcv;
+    private final NavBarController clcv;
 
-    public CustomListCell(String labelId) {
+    /**
+     * @description
+     * @param labelId button to control gmail labels
+     */
+    public LabelController(String labelId) {
         super();
-        clcv = new CustomListCellView1(labelId);
+        clcv = new NavBarController(labelId);
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
             }
         });
-
     }
 
+    /**
+     * @description allows updates to the gmail labels
+     * @param data message component to show notifications
+     * @param empty check for routing inbound email to proper label group
+     */
     @Override
     public void updateItem(FormattedMessage data, boolean empty) {
         super.updateItem(data, empty);

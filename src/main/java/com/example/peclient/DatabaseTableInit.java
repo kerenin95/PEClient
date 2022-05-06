@@ -6,7 +6,6 @@ import java.sql.Statement;
 public class DatabaseTableInit {
     public DatabaseTableInit(){
         initTables();
-
     }
 
     public void initTables(){

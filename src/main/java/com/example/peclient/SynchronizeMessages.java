@@ -9,9 +9,9 @@ public class SynchronizeMessages {
 
     public void fullSync() throws IOException, SQLException, ClassNotFoundException {
         GmailOperations.loadMailBox();
-        //new DatabaseTableInit();
-        //SaveMessages.saveMailbox();
-        //DatabaseConnectors.setHelperValues(DatabaseConnectors.loggedIn, "true");
+        new DatabaseTableInit();
+        SaveMessages.saveMailbox();
+        DatabaseConnectors.setHelperValues(DatabaseConnectors.loggedIn, "true");
         System.out.println("Sync done");
     }
 

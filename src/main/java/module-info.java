@@ -15,6 +15,7 @@ module com.example.peclient {
     requires google.oauth.client.jetty;
     requires controlsfx;
     requires google.api.services.gmail.v1.rev62;
+    requires jdk.javadoc;
 
 
     opens com.example.peclient to javafx.fxml;
