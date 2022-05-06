@@ -9,6 +9,10 @@ import javafx.concurrent.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author bber9
+ * @description build message lists to mark when changes occur
+ */
 public class GmailMessages {
 
     public static String USERS_EMAIL_ADDRESS;

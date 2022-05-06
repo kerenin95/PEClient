@@ -3,11 +3,18 @@ package com.example.peclient;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * @author bber9
+ * @description generates embedded tables on successful connection
+ */
 public class DatabaseTableInit {
     public DatabaseTableInit(){
         initTables();
     }
 
+    /**
+     * @description runs init on tables
+     */
     public void initTables(){
         try {
             initInbox();
@@ -22,6 +29,11 @@ public class DatabaseTableInit {
         }
     }
 
+    /**
+     * @description setup for inbox tables
+     * @throws SQLException if error with insert is found
+     * @throws ClassNotFoundException if issue with code if found
+     */
     private void initInbox() throws SQLException, ClassNotFoundException {
         String sql1 = "DROP TABLE IF EXISTS inbox";
         String sql2 = "CREATE TABLE inbox " +
@@ -39,6 +51,11 @@ public class DatabaseTableInit {
         statement.close();
     }
 
+    /**
+     * @description setup for sent message tables
+     * @throws SQLException if error with insert is found
+     * @throws ClassNotFoundException if issue with code if found
+     */
     private void initSent() throws SQLException, ClassNotFoundException {
         String sql1 = "DROP TABLE IF EXISTS sent";
         String sql2 = "CREATE TABLE sent " +
@@ -56,6 +73,11 @@ public class DatabaseTableInit {
         statement.close();
     }
 
+    /**
+     * @description setup for draft tables
+     * @throws SQLException if error with insert is found
+     * @throws ClassNotFoundException if issue with code if found
+     */
     private void initDraft() throws SQLException, ClassNotFoundException {
         String sql1 = "DROP TABLE IF EXISTS draft";
         String sql2 = "CREATE TABLE draft " +
@@ -73,6 +95,11 @@ public class DatabaseTableInit {
         statement.close();
     }
 
+    /**
+     * @description setup for trash tables
+     * @throws SQLException if error with insert is found
+     * @throws ClassNotFoundException if issue with code if found
+     */
     private void initTrash() throws SQLException, ClassNotFoundException {
         String sql1 = "DROP TABLE IF EXISTS trash";
         String sql2 = "CREATE TABLE trash " +
@@ -90,6 +117,11 @@ public class DatabaseTableInit {
         statement.close();
     }
 
+    /**
+     * @description setup for helper tables
+     * @throws SQLException if error with insert is found
+     * @throws ClassNotFoundException if issue with code if found
+     */
     public void initHelper() throws SQLException, ClassNotFoundException {
         String sql1 = "DROP TABLE IF EXISTS helper";
         String sql2 = "CREATE TABLE helper" +

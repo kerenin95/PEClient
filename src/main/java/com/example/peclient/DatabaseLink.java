@@ -8,7 +8,8 @@ import java.sql.Statement;
 
 
 /**
- * Embedded database connector
+ * @author bber9
+ * @description sets up connection to h2db embedded
  */
 public class DatabaseLink {
     private static Connection connection;

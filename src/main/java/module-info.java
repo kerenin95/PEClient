@@ -16,6 +16,7 @@ module com.example.peclient {
     requires controlsfx;
     requires google.api.services.gmail.v1.rev62;
     requires jdk.javadoc;
+    requires com.h2database;
 
 
     opens com.example.peclient to javafx.fxml;

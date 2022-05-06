@@ -3,6 +3,10 @@ package com.example.peclient;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.MessagePartHeader;
 
+/**
+ * @author bber9
+ * @description object creation of email message with all components
+ */
 public class FormattedMessage {
 
     private String draftId;
@@ -21,11 +25,18 @@ public class FormattedMessage {
     private String toProfilePicString = "?";
     private String fromProfilePicString = "?";
 
+    /**
+     * @description constructor which runs helper method
+     * @param message text content of message
+     */
     public FormattedMessage(Message message){
         this.message = message;
         setMessageFields();
     }
 
+    /**
+     * @description grabs details from header of message content and parses for message descriptors
+     */
     public void setMessageFields(){
         for(MessagePartHeader header : message.getPayload().getHeaders()) {
             String temp = null;
